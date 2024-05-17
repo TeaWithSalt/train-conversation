@@ -1,0 +1,27 @@
+    swagger: "2.0"
+    info:
+      title: "Audio to Text API"
+      description: "API for converting audio to text with speaker diarization"
+      version: "1.0"
+    host: "localhost:5000"
+    schemes:
+    - "http"
+    basePath: "/"
+    consumes:
+    - "multipart/form-data"
+    produces:
+    - "application/json"
+    paths:
+      /audio-to-text:
+        post:
+          parameters:
+          - name: "audio"
+            in: "formData"
+            description: "The audio file to transcribe"
+            required: true
+            type: "file"
+          responses:
+            200:
+              description: "An array of transcribed text with diarization info"
+            400:
+              description: "Invalid request"
