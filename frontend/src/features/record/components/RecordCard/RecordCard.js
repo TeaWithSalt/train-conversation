@@ -11,7 +11,7 @@ export default function RecordCard(props) {
 
     const endTime = useMemo(() => {
         const date = new Date(props.record.date)
-        date.setSeconds(date.getSeconds() + 0)
+        date.setSeconds(date.getSeconds() + props.record.duration)
         return getTime(date);
     }, [props])
 
@@ -48,7 +48,7 @@ export default function RecordCard(props) {
                                                 </path>
                                             </svg>
                                             <p className={styles.durationValue}>
-                                                25 мин.
+                                                {Math.ceil(props.record.duration / 60)} мин.
                                             </p>
                                         </div>
                                     }
@@ -61,7 +61,7 @@ export default function RecordCard(props) {
                         <div className={styles.statisticsLine}>
                             <p className={styles.statisticsKey}>Ошибок</p>
                             <p className={`${styles.statisticsValue} ${styles.statisticsValueError}`}>
-                                5
+                                {props.record.errorsCount}
                             </p>
                         </div>
                         <div className={styles.statisticsLine}>

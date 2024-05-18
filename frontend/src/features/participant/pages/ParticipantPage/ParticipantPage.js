@@ -1,12 +1,13 @@
 import React, {useEffect, useState} from 'react';
 import {useParams} from "react-router-dom";
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch} from "react-redux";
 import {Avatar, Spin, Typography} from "antd";
 import {getParticipant} from "../../../../store/slices/participantSlice";
 import {useParticipant} from "../../../../hooks/use-participant";
 import styles from './ParticipantPage.module.css'
 import Filters from "../../../record/components/Filters/Filters";
 import RecordCard from "../../components/RecordCard/RecordCard";
+import {ReactComponent as Empty} from "../../../../assets/images/Empty.svg";
 
 const ParticipantPage = () => {
     const {participantId} = useParams()
@@ -18,8 +19,8 @@ const ParticipantPage = () => {
         dispatch(getParticipant(participantId))
     }, [participantId, dispatch]);
 
-    if(!participant || isLoading)
-        return <Spin/>
+    if (!participant || isLoading)
+        return <Spin className={styles.spin}/>
     return (
         <div className={styles.page}>
             <div className={styles.info}>
@@ -40,6 +41,10 @@ const ParticipantPage = () => {
                 Записи
             </h1>
             <Filters withParticipants={false} records={participant.records ?? []} setRecords={setDisplayRecords}/>
+            {
+                displayRecords.length <= 0 &&
+                <Empty width={150} height={165} className={styles.empty}/>
+            }
             {displayRecords.map((record, index) => <RecordCard record={record} index={index}/>)}
         </div>
     );

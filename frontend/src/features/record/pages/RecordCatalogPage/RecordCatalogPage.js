@@ -8,6 +8,7 @@ import {useDispatch} from "react-redux";
 import Filters from "../../components/Filters/Filters";
 import {useRecords} from "../../../../hooks/use-records";
 import {getRecords} from "../../../../store/slices/recordsSlice";
+import {ReactComponent as Empty} from "../../../../assets/images/Empty.svg";
 
 
 export function RecordCatalogPage(props) {
@@ -45,7 +46,7 @@ export function RecordCatalogPage(props) {
                     }
                     {
                         displayRecords.length === 0 &&
-                        <p>Нет записей!</p>
+                        <Empty width={150} height={165} className={styles.empty}/>
                     }
                 </div>
             </div>

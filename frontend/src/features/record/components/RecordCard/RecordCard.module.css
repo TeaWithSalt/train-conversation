@@ -61,8 +61,8 @@
 
 .recordCard__moreContainer:hover .recordCard__arrow path,
 .recordCard__moreContainer:hover .recordCard__more {
-    color: #e21a1a;
-    stroke: #e21a1a;
+    color: #ac0e0e;
+    stroke: #ac0e0e;
     transition: all 0.2s ease-in;
 }
 

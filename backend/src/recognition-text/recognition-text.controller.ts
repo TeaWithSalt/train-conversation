@@ -9,30 +9,4 @@ export class RecognitionTextController {
     constructor(private readonly recognitionTextService: RecognitionTextService) {
     }
 
-    @Post()
-    @UseGuards(JwtAuthGuard)
-    create(@Body() createRecognitionTextDto: CreateRecognitionTextDto) {
-        return this.recognitionTextService.create(createRecognitionTextDto);
-    }
-
-    @Get()
-    @UseGuards(JwtAuthGuard)
-    findAll() {
-        return this.recognitionTextService.findAll();
-    }
-
-    @Get(':id')
-    findOne(@Param('id') id: string) {
-        return this.recognitionTextService.findOne(+id);
-    }
-
-    @Patch(':id')
-    update(@Param('id') id: string, @Body() updateRecognitionTextDto: UpdateRecognitionTextDto) {
-        return this.recognitionTextService.update(+id, updateRecognitionTextDto);
-    }
-
-    @Delete(':id')
-    remove(@Param('id') id: string) {
-        return this.recognitionTextService.remove(+id);
-    }
 }

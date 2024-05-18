@@ -1,3 +1,10 @@
+.spin {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
 .page{
     padding: 40px 0;
     display: flex;
@@ -33,4 +40,11 @@
 .records {
     font-family: var(--title-font);
     font-weight: bold;
+}
+
+.empty {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
