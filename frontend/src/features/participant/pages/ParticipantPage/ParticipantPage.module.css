@@ -1,0 +1,36 @@
+.page{
+    padding: 40px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.info {
+    background-color: var(--color-white-500);
+    padding: 24px;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    margin-bottom: 16px;
+}
+
+.name {
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.role {
+    font-size: 14px;
+    color: var(--color-gray-100);
+}
+
+.recordCount {
+    color: var(--color-red-700);
+    font-size: 14px;
+    margin-top: 20px;
+}
+
+.records {
+    font-family: var(--title-font);
+    font-weight: bold;
+}

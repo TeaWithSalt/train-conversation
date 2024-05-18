@@ -10,7 +10,10 @@ import {useSituations} from "../../../../hooks/use-situations";
 
 const {RangePicker} = DatePicker;
 
-export default function Filters(props) {
+export default function Filters({
+                                    withParticipants = true,
+                                    ...props
+                                }) {
     const navigate = useNavigate()
     const dispatch = useDispatch()
     const [participantsFilter, setParticipantsFilter] = useState([])
@@ -31,10 +34,10 @@ export default function Filters(props) {
             tempRecords = tempRecords.filter(record => record.participants.reduce((accumulator, participant) => accumulator + (participantsFilter.includes(participant.id) ? 1 : 0), 0) >= participantsFilter.length)
 
         if (situationsFilter.length > 0)
-            tempRecords = tempRecords.filter(record => situationsFilter.includes(record.situationTable.id), 0)
+            tempRecords = tempRecords.filter(record => situationsFilter.includes(record.situation.id), 0)
 
         props.setRecords(tempRecords)
-    }, [props.records, participantsFilter, situationsFilter])
+    }, [participantsFilter, situationsFilter])
 
 
     if (!participants || !situations || !props.records)
@@ -59,10 +62,11 @@ export default function Filters(props) {
                     console.log('Selected Time: ', value);
                     console.log('Formatted Selected Time: ', dateString);
                 }}
-                onOk={() => {}}
+                onOk={() => {
+                }}
                 placeholder={["Разговоры от", "Разговоры до"]}
             />
-            <Select
+            {withParticipants && <Select
                 mode="multiple"
                 style={{width: '100%'}}
                 placeholder="Участники разговора"
@@ -85,7 +89,7 @@ export default function Filters(props) {
                         {option.data.label}
                     </Space>
                 )}
-            />
+            />}
             <Select
                 mode="multiple"
                 style={{width: '100%'}}

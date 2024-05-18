@@ -6,6 +6,7 @@ import {PlusOutlined} from "@ant-design/icons";
 import {useParticipants} from "../../../../hooks/use-participants";
 import {useDispatch} from "react-redux";
 import {getParticipants} from "../../../../store/slices/participantsSlice";
+import {useNavigate} from "react-router-dom";
 
 const {RangePicker} = DatePicker;
 
@@ -17,6 +18,7 @@ export function ParticipantsCatalogPage(props) {
     const dispatch = useDispatch()
     const [isAddParticipantModalOpen, setIsAddParticipantModalOpen] = useState(false);
     const participants = useParticipants()
+    const navigate = useNavigate()
 
     useEffect(() => {
         dispatch(getParticipants())
@@ -55,7 +57,7 @@ export function ParticipantsCatalogPage(props) {
                                 children: <div className={styles.participantsCatalogPage__participants}>
                                     {
                                         role.participants.map(participant => (
-                                            <Card>
+                                            <Card onClick={() => navigate(`/participants/${participant.id}`)}>
                                                 <div className={styles.participantsCatalogPage__participantCard}>
                                                     <Avatar size={64} src={participant.avatarSrc}/>
                                                     <div>
