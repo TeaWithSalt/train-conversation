@@ -2,9 +2,8 @@
     width: 100%;
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 32px;
 }
-
 
 .recordCard__up {
     display: flex;
@@ -37,22 +36,11 @@
 
 .recordCard__date {
     color: #5A5A5A;
-    font-size: 16px;
+    font-size: 14px;
 }
 
 .recordCard__situation {
-    font-size: 16px;
-}
-
-.recordCard__error {
-    display: flex;
-    gap: 5px;
-    font-size: 16px;
-}
-
-.recordCard__error__count {
-    color: #e21a1a;
-    font-weight: 600;
+    font-size: 14px;
 }
 
 .recordCard__moreContainer {
@@ -62,7 +50,7 @@
 }
 
 .recordCard__more {
-    font-size: 16px;
+    font-size: 14px;
     font-weight: 600;
     color: #e21a1a;
 }
@@ -90,3 +78,50 @@
     background-color: var(--color-red-700);
 }
 
+.mainContainer {
+    display: flex;
+    justify-content: space-between;
+    gap: 32px
+}
+
+.mainRightContainer {
+    padding-left: 32px;
+    flex-basis: 400px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    border-left: 1px solid #dedede
+}
+
+.statisticsLine {
+    display: flex;
+    align-items: center;
+}
+
+.statisticsKey {
+    font-size: 16px;
+    color: var(--color-gray-200);
+    flex-basis: 200px;
+}
+
+.statisticsValue {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--color-gray-200);
+}
+
+.statisticsValueError {
+    color: var(--color-red-700);
+}
+
+.duration {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+}
+
+.durationValue {
+    color: var(--color-gray-200);
+    font-size: 14px;
+}
