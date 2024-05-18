@@ -35,3 +35,26 @@
 .recordPage__right {
     width: 350px;
 }
+
+.playerContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.player__title {
+    width: 100%;
+    text-align: start;
+}
+
+.player {
+    width: 100%;
+}
+
+.player__buttons {
+    display: flex;
+    gap: 20px;
+}
