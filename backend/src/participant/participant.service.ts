@@ -42,7 +42,7 @@ export class ParticipantService {
         const roles = [...new Set(participants.map(participant => participant.role))]
         return roles.map(role => ({
             roleName: role,
-            participants: participants.find(participant => participant.role === role)
+            participants: participants.filter(participant => participant.role === role)
         }))
     }
 

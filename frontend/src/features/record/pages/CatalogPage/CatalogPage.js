@@ -1,54 +1,18 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import styles from './CatalogPage.module.css'
 import RecordCard from "../../components/RecordCard/RecordCard";
-import {Avatar, Button, Card, DatePicker, Select, Space} from "antd";
+import {Button, Card, DatePicker} from "antd";
 import AddRecordModal from "../../../../components/AddRecordModal/AddRecordModal";
 import {PlusOutlined} from "@ant-design/icons";
+import {useDispatch} from "react-redux";
+import {getParticipants} from "../../../../store/slices/participantsSlice";
+import {useParticipants} from "../../../../hooks/use-participants";
+import Filters from "../../components/Filters/Filters";
 
-const {RangePicker} = DatePicker;
-
-const onOk = (value) => {
-    console.log('onOk: ', value);
-};
 
 export function CatalogPage(props) {
+    const dispatch = useDispatch()
     const [isAddRecordModalOpen, setIsAddRecordModalOpen] = useState(false);
-
-    const participants = [
-        {
-            label: <span>Машинисты</span>,
-            title: 'Машинисты',
-            options: [
-                {
-                    label: <span>Иванов Иван</span>,
-                    value: 'Jack',
-                    avatarSrc: "https://avatars.githubusercontent.com/u/115563530?v=4"
-                },
-                {label: <span>Галимзянов Айнур</span>, value: '1'},
-                {label: <span>Галимзянов Айнур</span>, value: '2'},
-            ],
-        },
-        {
-            label: <span>Диспетчеры</span>,
-            title: 'Диспетчеры',
-            options: [
-                {label: <span>Chloe</span>, value: 'Chloe'},
-                {label: <span>Lucas</span>, value: 'Lucas'},
-            ],
-        },
-    ]
-
-    const situations = [
-        {
-            label: 'Безостановочный пропуск поезда по главному железнодорожному пути железнодорожной станции при открытых входном (маршрутных) и выходном светофорах на однопутный перегон или по правильному железнодорожному пути двухпутного перегона при нормальном действии автоблокировки (полуавтоматической блокировки) и отсутствии необходимости в передаче дополнительных предупреждений',
-            value: '1'
-        },
-        {
-            label: 'Прием поезда по пригласительному сигналу на входном (маршрутном) светофоре',
-            value: '2'
-        },
-    ]
-
 
     const records = [
         {
@@ -168,43 +132,7 @@ export function CatalogPage(props) {
                 </div>
                 <div className={styles.catalogPage__right}>
                     <Card>
-                        <div className={styles.catalogPage__filters}>
-                            <h3>Фильтры</h3>
-                            <RangePicker
-                                allowEmpty={[false, true]}
-                                showTime={{format: 'HH:mm:ss'}}
-                                format="YYYY-MM-DD HH:mm:ss"
-                                onChange={(value, dateString) => {
-                                    console.log('Selected Time: ', value);
-                                    console.log('Formatted Selected Time: ', dateString);
-                                }}
-                                onOk={onOk}
-                                placeholder={["Разговоры от", "Разговоры до"]}
-                            />
-                            <Select
-                                mode="multiple"
-                                style={{width: '100%'}}
-                                placeholder="Участники разговора"
-                                // onChange={handleChange}
-                                options={participants}
-                                maxCount="2"
-                                allowClear={true}
-                                optionRender={(option) => (
-                                    <Space>
-                                        <Avatar size={"small"} src={option.data.avatarSrc} alt=""/>
-                                        {option.data.label}
-                                    </Space>
-                                )}
-                            />
-                            <Select
-                                mode="multiple"
-                                style={{width: '100%'}}
-                                placeholder="Ситуации"
-                                // onChange={handleChange}
-                                options={situations}
-                                allowClear={true}
-                            />
-                        </div>
+                        <Filters/>
                     </Card>
                 </div>
             </div>

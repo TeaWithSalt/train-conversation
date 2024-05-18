@@ -3,8 +3,8 @@ import {Record} from "../../record/entities/record.entity";
 
 @Entity()
 export class SituationTable {
-    @PrimaryGeneratedColumn("uuid")
-    id: string;
+    @PrimaryGeneratedColumn("increment")
+    id: number;
 
     @Column()
     name: string;

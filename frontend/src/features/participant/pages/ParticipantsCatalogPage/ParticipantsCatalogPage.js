@@ -1,8 +1,11 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import styles from './ParticipantsCatalogPage.module.css'
 import {Avatar, Button, Card, Collapse, DatePicker} from "antd";
 import AddRecordModal from "../../../../components/AddRecordModal/AddRecordModal";
 import {PlusOutlined} from "@ant-design/icons";
+import {useParticipants} from "../../../../hooks/use-participants";
+import {useDispatch} from "react-redux";
+import {getParticipants} from "../../../../store/slices/participantsSlice";
 
 const {RangePicker} = DatePicker;
 
@@ -11,27 +14,13 @@ const onOk = (value) => {
 };
 
 export function ParticipantsCatalogPage(props) {
+    const dispatch = useDispatch()
     const [isAddParticipantModalOpen, setIsAddParticipantModalOpen] = useState(false);
+    const participants = useParticipants()
 
-    const participants = [
-        {
-            id: 1,
-            name: "Галимзянов Айнур",
-            role: "Диспетчер",
-            avatarSrc: "https://i.pravatar.cc/150?img=12",
-            errorsCount: 30
-        },
-        {
-            id: 2,
-            name: "Килязова Юния Сергеевна",
-            role: "Машинист",
-            avatarSrc: "https://i.pravatar.cc/150?img=44",
-            errorsCount: 20
-        }
-    ]
-
-    const roles = [...new Set(participants.map(participant => participant.role))]
-
+    useEffect(() => {
+        dispatch(getParticipants())
+    }, []);
 
     return (
         <div className={styles.participantsCatalogPage}>
@@ -50,21 +39,20 @@ export function ParticipantsCatalogPage(props) {
             <div className={styles.participantsCatalogPage__content}>
                 <Collapse
                     className={styles.participantsCatalogPage__catalog}
-                    defaultActiveKey={roles}
+                    defaultActiveKey={participants.roles}
                     size="medium"
                     ghost={true}
                     items={
-                        roles.map((role, index) => {
-                            const roleParticipants = participants.filter(participant => participant.role === role)
+                        participants.roles.map((role, index) => {
                             return {
                                 key: role,
                                 label: <p className={styles.participantsCatalogPage__title}>
-                                    {role}
-                                    <p className={styles.participantsCatalogPage__number}>({roleParticipants.length})</p>
+                                    {role.roleName}
+                                    <p className={styles.participantsCatalogPage__number}>({role.participants.length})</p>
                                 </p>,
                                 children: <div className={styles.participantsCatalogPage__participants}>
                                     {
-                                        roleParticipants.map(participant => (
+                                        role.participants.map(participant => (
                                             <Card>
                                                 <div className={styles.participantsCatalogPage__participantCard}>
                                                     <Avatar size={64} src={participant.avatarSrc}/>
@@ -73,9 +61,8 @@ export function ParticipantsCatalogPage(props) {
                                                             {participant.name}
                                                         </p>
 
-                                                        <p>Количество ошибок: {participant.errorsCount}</p>
+                                                        {/*<p>Количество ошибок: {participant.errorsCount}</p>*/}
                                                     </div>
-
                                                 </div>
                                             </Card>
                                         ))

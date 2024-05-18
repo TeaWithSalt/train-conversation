@@ -1,26 +1,36 @@
-import { Injectable } from '@nestjs/common';
-import { CreateSituationTableDto } from './dto/create-situation-table.dto';
-import { UpdateSituationTableDto } from './dto/update-situation-table.dto';
+import {Injectable} from '@nestjs/common';
+import {CreateSituationTableDto} from './dto/create-situation-table.dto';
+import {UpdateSituationTableDto} from './dto/update-situation-table.dto';
+import {InjectRepository} from "@nestjs/typeorm";
+import {Repository} from "typeorm";
+import {SituationTable} from "./entities/situation-table.entity";
 
 @Injectable()
 export class SituationTableService {
-  create(createSituationTableDto: CreateSituationTableDto) {
-    return 'This action adds a new situationTable';
-  }
+    constructor(
+        @InjectRepository(SituationTable)
+        private readonly situationTableRepository: Repository<SituationTable>,
+    ) {
+    }
 
-  findAll() {
-    return `This action returns all situationTable`;
-  }
 
-  findOne(id: number) {
-    return `This action returns a #${id} situationTable`;
-  }
+    create(createSituationTableDto: CreateSituationTableDto) {
+        return 'This action adds a new situationTable';
+    }
 
-  update(id: number, updateSituationTableDto: UpdateSituationTableDto) {
-    return `This action updates a #${id} situationTable`;
-  }
+    async findAll() {
+        return await this.situationTableRepository.find();
+    }
 
-  remove(id: number) {
-    return `This action removes a #${id} situationTable`;
-  }
+    findOne(id: number) {
+        return `This action returns a #${id} situationTable`;
+    }
+
+    update(id: number, updateSituationTableDto: UpdateSituationTableDto) {
+        return `This action updates a #${id} situationTable`;
+    }
+
+    remove(id: number) {
+        return `This action removes a #${id} situationTable`;
+    }
 }

@@ -7,10 +7,6 @@ import { UpdateSituationTableDto } from './dto/update-situation-table.dto';
 export class SituationTableController {
   constructor(private readonly situationTableService: SituationTableService) {}
 
-  @Post()
-  create(@Body() createSituationTableDto: CreateSituationTableDto) {
-    return this.situationTableService.create(createSituationTableDto);
-  }
 
   @Get()
   findAll() {
