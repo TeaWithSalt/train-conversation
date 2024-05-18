@@ -3,7 +3,7 @@
       title: "Audio to Text API"
       description: "API for converting audio to text with speaker diarization"
       version: "1.0"
-    host: "localhost:5000"
+    host: "62.84.126.41:5001"
     schemes:
     - "http"
     basePath: "/"
