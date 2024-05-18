@@ -1,12 +1,27 @@
+.Filters .select {
+    overflow: hidden;
+}
+
 .Filters .ant-select-selector {
     padding: 16px 20px;
     border-radius: 0;
-    border-color: transparent !important;
-    border-right-color: var(--color-white-200) !important;
 }
 
-.Filters .lastSelect .ant-select-selector {
-    padding: 16px 20px;
-    border-radius: 0;
-    border-color: transparent !important;;
+.Filters .select:not(.ant-select-focused) .ant-select-selector {
+    border-color: transparent !important;
+    border-right-color: #dedede !important;
+}
+
+.Filters .select:not(.ant-select-focused).lastSelect .ant-select-selector {
+    border-color: transparent !important;
+}
+
+.Filters .ant-select-selection-overflow {
+    flex-wrap: nowrap;
+    gap: 5px;
+}
+
+.Filters .ant-select-selection-overflow-item:not(.ant-select-selection-overflow-item-rest):not(.ant-select-selection-overflow-item-suffix) {
+    max-width: calc(100% - 60px);
+    overflow: hidden
 }

@@ -30,13 +30,7 @@ export const getParticipant = createAsyncThunk(
 );
 
 const initialState = {
-    participant: {
-        name: 'Name Name Name',
-        recordCount: 6,
-        records: [],
-        role: 'Role',
-        url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS5vl7JTcT_gToPMsWNDhBdjq6TsA6o9scv-h0oTgpsfw&s'
-    },
+    participant: null,
     isLoading: false,
 };
 

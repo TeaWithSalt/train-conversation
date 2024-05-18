@@ -14,108 +14,16 @@ const ParticipantPage = () => {
     const {participant, isLoading} = useParticipant()
     const [displayRecords, setDisplayRecords] = useState([])
 
-    /*useEffect(() => {
+    useEffect(() => {
         dispatch(getParticipant(participantId))
-    }, [participantId, dispatch]);*/
+    }, [participantId, dispatch]);
 
-    const records = [
-        {
-            id: 1,
-            situation: {
-                id: 2,
-                name: "Безостановочный пропуск поезда по главному железнодорожному пути железнодорожной станции при открытых входном (маршрутных) и выходном светофорах на однопутный перегон или по правильному железнодорожному пути двухпутного перегона при нормальном действии автоблокировки (полуавтоматической блокировки) и отсутствии необходимости в передаче дополнительных предупреждений\n"
-            },
-            date: "2024-05-17T17:30:52.255Z",
-            participants: [
-                {
-                    id: 1,
-                    name: "Галимзянов Айнур",
-                    role: "Диспетчер",
-                    avatarSrc: "https://i.pravatar.cc/150?img=12"
-                },
-                {
-                    id: 2,
-                    name: "Килязова Юния",
-                    role: "Машинист",
-                    avatarSrc: "https://i.pravatar.cc/150?img=44"
-                }
-            ]
-        },
-        {
-            id: 2,
-            situation: {
-                id: 1,
-                name: "Прием поезда по регистрируемому приказу ДСП станции"
-            },
-            date: "2024-05-19T17:30:52.255Z",
-            participants: [
-                {
-                    id: 2,
-                    name: "Килязова Юния",
-                    role: "Машинист",
-                    avatarSrc: "https://i.pravatar.cc/150?img=44"
-                },
-                {
-                    id: 1,
-                    name: "Галимзянов Айнур",
-                    role: "Диспетчер",
-                    avatarSrc: "https://i.pravatar.cc/150?img=12"
-                }
-            ]
-        },
-        {
-            id: 3,
-            situation: {
-                id: 1,
-                name: "Прием поезда по регистрируемому приказу ДСП станции"
-            },
-            date: "2024-05-19T17:30:52.255Z",
-            participants: [
-                {
-                    id: 1,
-                    name: "Галимзянов Айнур",
-                    role: "Диспетчер",
-                    avatarSrc: "https://i.pravatar.cc/150?img=12"
-                },
-                {
-                    id: 2,
-                    name: "Килязова Юния",
-                    role: "Машинист",
-                    avatarSrc: "https://i.pravatar.cc/150?img=44"
-                }
-            ]
-        },
-        {
-            id: 4,
-            situation: {
-                id: 1,
-                name: "Прием поезда по регистрируемому приказу ДСП станции"
-            },
-            date: "2024-05-19T17:30:52.255Z",
-            participants: [
-                {
-                    id: 2,
-                    name: "Килязова Юния",
-                    role: "Машинист",
-                    avatarSrc: "https://i.pravatar.cc/150?img=44"
-                },
-                {
-                    id: 1,
-                    name: "Галимзянов Айнур",
-                    role: "Диспетчер",
-                    avatarSrc: "https://i.pravatar.cc/150?img=12"
-                }
-            ]
-        }
-    ]
-
-    if(!participant)
+    if(!participant || isLoading)
         return <Spin/>
-
     return (
         <div className={styles.page}>
             <div className={styles.info}>
-                <Avatar size={128} alt={'avatar'} src={participant.url}/>
+                <Avatar size={128} alt={'avatar'} src={participant.avatarSrc}/>
                 <div className={styles.commonInfo}>
                     <Typography title={3} className={styles.name}>
                         {participant.name}
@@ -131,7 +39,7 @@ const ParticipantPage = () => {
             <h1 className={styles.records}>
                 Записи
             </h1>
-            <Filters withParticipants={false} records={records} setRecords={setDisplayRecords}/>
+            <Filters withParticipants={false} records={participant.records ?? []} setRecords={setDisplayRecords}/>
             {displayRecords.map((record, index) => <RecordCard record={record} index={index}/>)}
         </div>
     );

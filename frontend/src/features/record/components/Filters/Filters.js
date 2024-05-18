@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import styles from "./Filters.module.css"
 import {Avatar, DatePicker, Select, Space, Spin, Tooltip} from "antd";
-import {useNavigate} from "react-router-dom";
 import {useDispatch} from "react-redux";
 import {getParticipants} from "../../../../store/slices/participantsSlice";
 import {useParticipants} from "../../../../hooks/use-participants";
@@ -15,7 +14,6 @@ export default function Filters({
                                     withParticipants = true,
                                     ...props
                                 }) {
-    const navigate = useNavigate()
     const dispatch = useDispatch()
     const [participantsFilter, setParticipantsFilter] = useState([])
     const [situationsFilter, setSituationsFilter] = useState([])
@@ -26,7 +24,7 @@ export default function Filters({
     useEffect(() => {
         dispatch(getParticipants())
         dispatch(getSituations())
-    }, []);
+    }, [dispatch]);
 
     useEffect(() => {
         let tempRecords = props.records || []
@@ -35,10 +33,10 @@ export default function Filters({
             tempRecords = tempRecords.filter(record => record.participants.reduce((accumulator, participant) => accumulator + (participantsFilter.includes(participant.id) ? 1 : 0), 0) >= participantsFilter.length)
 
         if (situationsFilter.length > 0)
-            tempRecords = tempRecords.filter(record => situationsFilter.includes(record.situation.id), 0)
+            tempRecords = tempRecords.filter(record => situationsFilter.includes(record.situationTable.id), 0)
 
         props.setRecords(tempRecords)
-    }, [participantsFilter, situationsFilter])
+    }, [participantsFilter, situationsFilter, props.records])
 
 
     if (!participants || !situations || !props.records)
@@ -86,7 +84,7 @@ export default function Filters({
                         <span className={styles.extraOptions}>+{omittedValues.length}</span>
                     </Tooltip>
                 )}
-                className={styles.select}
+                className={`select ${styles.select}`}
                 onChange={onChangeParticipantsFilter}
                 options={participants.roles.map(role => ({
                     label: <span>{role.roleName}</span>,
@@ -116,7 +114,7 @@ export default function Filters({
                     value: situation.id,
                     label: situation.name
                 }))}
-                className={`${styles.select} lastSelect`}
+                className={`${styles.select} lastSelect select`}
                 allowClear={true}
                 maxTagCount={1}
                 maxTagPlaceholder={(omittedValues) => (

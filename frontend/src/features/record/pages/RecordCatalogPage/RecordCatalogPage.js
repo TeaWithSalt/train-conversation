@@ -18,8 +18,7 @@ export function RecordCatalogPage(props) {
 
     useEffect(() => {
         dispatch(getRecords())
-    }, [])
-
+    }, [dispatch])
 
     return (
         <div className={styles.catalogPage}>

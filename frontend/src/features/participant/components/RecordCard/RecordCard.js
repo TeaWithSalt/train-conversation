@@ -30,7 +30,7 @@ export default function RecordCard(props) {
                     <p className={styles.recordCard__date}>{new Date(props.record.date).toLocaleString()}</p>
                 </div>
                 <div className={styles.recordCard__down}>
-                    <p className={styles.recordCard__situation}>{props.record.situation.name}</p>
+                    <p className={styles.recordCard__situation}>{props.record.situationTable.name}</p>
                     <div className={styles.recordCard__moreContainer} onClick={() => navigate("record/" + props.record.id)}>
                         <p className={styles.recordCard__more}>Подробнее</p>
                         <Arrow width={20} height={33} className={styles.recordCard__arrow}/>
