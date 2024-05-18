@@ -1,9 +1,9 @@
 import React from 'react';
 import styles from "./RecordCard.module.css"
-import {Card, Space} from "antd";
+import {Card} from "antd";
 import {useNavigate} from "react-router-dom";
 import ParticipantInfo from "../ParticipantInfo/ParticipantInfo";
-import {ReactComponent as Arrow} from "../../../../assets/images/Arrow.svg";
+import {getDateFromISO} from "../../../../lib/getDateFromISO";
 
 export default function RecordCard(props) {
     const navigate = useNavigate()
@@ -13,8 +13,11 @@ export default function RecordCard(props) {
             <div className={styles.recordCard}>
                 <div className={styles.recordCard__up}>
                     <p className={styles.recordCard__situation}>{props.record.situationTable.name}</p>
-                    <p className={styles.recordCard__date}>{new Date(props.record.date).toDateString()}</p>
-                    <div className={styles.recordCard__moreContainer} onClick={() => navigate("record/" + props.record.id)}>
+                    <div className={styles.separator}/>
+                    <p className={styles.recordCard__date}>{getDateFromISO(props.record.date)}</p>
+                    <div className={styles.separator}/>
+                    <div className={styles.recordCard__moreContainer}
+                         onClick={() => navigate("record/" + props.record.id)}>
                         <p className={styles.recordCard__more}>Подробнее</p>
                     </div>
                 </div>
