@@ -11,9 +11,9 @@ import './style.css'
 const {RangePicker} = DatePicker;
 
 export default function Filters({
-                                    withParticipants = true,
-                                    ...props
-                                }) {
+    withParticipants = true,
+    ...props
+}) {
     const dispatch = useDispatch()
     const [participantsFilter, setParticipantsFilter] = useState([])
     const [situationsFilter, setSituationsFilter] = useState([])
@@ -63,12 +63,12 @@ export default function Filters({
                 onOk={() => {
                 }}
                 className={styles.rangePicker}
-                placeholder={["Разговоры от", "Разговоры до"]}
+                placeholder={["Переговоры от", "Переговоры до"]}
             />
             {withParticipants && <Select
                 mode="multiple"
                 style={{width: '100%'}}
-                placeholder="Участники разговора"
+                placeholder="Участники переговоров"
                 value={participantsFilter}
                 maxTagCount={1}
                 maxTagPlaceholder={(omittedValues) => (

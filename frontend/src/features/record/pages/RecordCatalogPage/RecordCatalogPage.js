@@ -24,7 +24,7 @@ export function RecordCatalogPage(props) {
     return (
         <div className={styles.catalogPage}>
             <div className={styles.catalogPage__titleContainer}>
-                <h1>Записи переговоров</h1>
+                <h1 className={styles.title}>Записи переговоров</h1>
                 <Button
                     type="primary"
                     onClick={() => setIsAddRecordModalOpen(true)}

@@ -43,7 +43,7 @@ const ParticipantPage = () => {
                 </div>
             </div>
             <h1 className={styles.records}>
-                Записи
+                Записи переговоров сотрудника
             </h1>
             <Filters withParticipants={false} records={participant.records ?? []} setRecords={setDisplayRecords}/>
             {

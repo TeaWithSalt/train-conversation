@@ -8,6 +8,10 @@
     margin: 50px 0 30px 0;
 }
 
+.title {
+    font-family: RussianRail, serif;
+}
+
 .catalogPage__titleContainer {
     display: flex;
     justify-content: space-between;
