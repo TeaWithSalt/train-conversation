@@ -1,14 +1,20 @@
 import {Injectable, NotFoundException} from '@nestjs/common';
 import {InjectRepository} from "@nestjs/typeorm";
 import {Record} from "./entities/record.entity";
-import {Repository} from "typeorm";
+import {In, Repository} from "typeorm";
 import {CreateRecordDto} from "./dto/create-record.dto";
+import * as FormData from 'form-data';
+import axios from "axios";
+import * as fs from "fs";
+import {Participant} from "../participant/entities/participant.entity";
 
 @Injectable()
 export class RecordService {
     constructor(
         @InjectRepository(Record)
         private readonly recordRepository: Repository<Record>,
+        @InjectRepository(Participant)
+        private readonly participantRepository: Repository<Participant>,
     ) {
     }
 
@@ -19,18 +25,37 @@ export class RecordService {
 
     async create(createRecordDto: CreateRecordDto, file: Express.Multer.File) {
         console.log(createRecordDto, file)
+        const participants = await this.participantRepository.find({where: {id: In(JSON.parse(createRecordDto.participants))}})
+        const roles = participants.map(participant => ({id: participant.id, role: participant.role}))
 
         const formData = new FormData();
-        let blob = new Blob([file.buffer], { type: file.mimetype })
-        formData.append("file", blob, file.originalname);
-
-        let response = await fetch("http://89.208.216.16:5001/audio-to-text", {
-            method: 'post',
-            body: formData
+        formData.append('audio', fs.createReadStream(file.path), {
+            contentType: file.mimetype,
+            filename: file.originalname
         });
 
-        response = await response.json();
-        console.log(response)
+        const recognitionText = await axios.post('http://89.208.216.16:5001/audio-to-text', formData, {
+            headers: formData.getHeaders()
+        });
+
+        console.log(recognitionText.data);
+
+        const dataForRecognitionRoles = {
+            dialog: recognitionText.data.dialogue,
+            roles
+        }
+        console.log(dataForRecognitionRoles)
+
+        let recognitionTextWithRoles = await fetch("http://51.250.4.87:5003/send_text", {
+            method: 'post',
+            body: JSON.stringify(dataForRecognitionRoles),
+            headers: {
+                "Content-Type": "application/json"
+            }
+        });
+
+        console.log(await recognitionTextWithRoles.text())
+
 
         const newRecord = {
             // name: createBookDto.name,
