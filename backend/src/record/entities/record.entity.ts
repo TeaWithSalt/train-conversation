@@ -17,6 +17,9 @@ export class Record {
     @Column()
     date: Date;
 
+    @Column({default: 0})
+    duration: number;
+
     @ManyToOne(() => SituationTable, (situationTable) => situationTable.records, {nullable: true})
     @JoinColumn({name: 'situation_table'})
     situationTable: SituationTable;

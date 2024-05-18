@@ -46,7 +46,7 @@ export class RecordService {
         }
         console.log(dataForRecognitionRoles)
 
-        let recognitionTextWithRoles = await fetch("http://51.250.4.87:5003/send_text", {
+        let recognitionTextWithRolesRequest = await fetch("http://51.250.4.87:5003/send_text", {
             method: 'post',
             body: JSON.stringify(dataForRecognitionRoles),
             headers: {
@@ -54,7 +54,7 @@ export class RecordService {
             }
         });
 
-        console.log(await recognitionTextWithRoles.text())
+        const recognitionTextWithRoles = await recognitionTextWithRolesRequest.json();
 
 
         const newRecord = {
@@ -72,14 +72,18 @@ export class RecordService {
     }
 
     async findAll() {
-        return await this.recordRepository.find({
+        const records = await this.recordRepository.find({
             relations: {
                 situationTable: true,
                 participants: true,
+                recognition_texts: {
+                    errors: true
+                }
             },
             select: {
                 id: true,
                 date: true,
+                duration: true,
                 situationTable: {
                     id: true,
                     name: true
@@ -89,9 +93,27 @@ export class RecordService {
                     name: true,
                     role: true,
                     avatarSrc: true
+                },
+                recognition_texts: {
+                    id: true,
+                    errors: true
                 }
             }
         });
+
+        const result = records.map(record => {
+            const errorsCount = record.recognition_texts.reduce(
+                (acc, cur) => acc + cur.errors.length,
+                0
+            )
+            delete record["recognition_texts"]
+            return {
+                ...record,
+                errorsCount
+            }
+        })
+
+        return result;
     }
 
     async findOne(id: string) {

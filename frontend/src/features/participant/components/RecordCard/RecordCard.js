@@ -31,7 +31,7 @@ export default function RecordCard(props) {
                 </div>
                 <div className={styles.recordCard__down}>
                     <p className={styles.recordCard__situation}>{props.record.situationTable.name}</p>
-                    <div className={styles.recordCard__moreContainer} onClick={() => navigate("record/" + props.record.id)}>
+                    <div className={styles.recordCard__moreContainer} onClick={() => navigate("/record/" + props.record.id)}>
                         <p className={styles.recordCard__more}>Подробнее</p>
                         <Arrow width={20} height={33} className={styles.recordCard__arrow}/>
                     </div>

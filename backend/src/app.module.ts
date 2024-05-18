@@ -9,6 +9,7 @@ import { RecordModule } from './record/record.module';
 import { ParticipantModule } from './participant/participant.module';
 import { SituationTableModule } from './situation-table/situation-table.module';
 import { RecognitionTextModule } from './recognition-text/recognition-text.module';
+import { ErrorModule } from './error/error.module';
 
 @Module({
     imports: [
@@ -32,7 +33,8 @@ import { RecognitionTextModule } from './recognition-text/recognition-text.modul
         RecordModule,
         ParticipantModule,
         SituationTableModule,
-        RecognitionTextModule
+        RecognitionTextModule,
+        ErrorModule
     ],
     controllers: [AppController],
     providers: [AppService],
