@@ -1,18 +1,16 @@
 import React, {useEffect, useState} from 'react';
-import styles from './CatalogPage.module.css'
+import styles from './RecordCatalogPage.module.css'
 import RecordCard from "../../components/RecordCard/RecordCard";
-import {Button, Card, DatePicker} from "antd";
+import {Button, Card} from "antd";
 import AddRecordModal from "../../../../components/AddRecordModal/AddRecordModal";
 import {PlusOutlined} from "@ant-design/icons";
 import {useDispatch} from "react-redux";
-import {getParticipants} from "../../../../store/slices/participantsSlice";
-import {useParticipants} from "../../../../hooks/use-participants";
 import Filters from "../../components/Filters/Filters";
 import {useRecords} from "../../../../hooks/use-records";
 import {getRecords} from "../../../../store/slices/recordsSlice";
 
 
-export function CatalogPage(props) {
+export function RecordCatalogPage(props) {
     const dispatch = useDispatch()
     const [isAddRecordModalOpen, setIsAddRecordModalOpen] = useState(false);
     const [displayRecords, setDisplayRecords] = useState([])

@@ -30,18 +30,20 @@ export const getRecord = createAsyncThunk(
     }
 );
 
-export const sendRecord = createAsyncThunk(
+export const createRecord = createAsyncThunk(
     'record/create',
     async function (record, {rejectWithValue, dispatch}) {
         try {
             const formData = new FormData();
             formData.append("file", record.file);
+            formData.append("date", record.date.$d);
+            formData.append("participants", JSON.stringify(record.participants));
             console.log(record)
 
             let response = await fetch(API.RECORD, {
                 method: 'post',
+                body: formData,
                 headers: {
-                    "Content-Type": "application/json",
                     "Authorization": "Bearer " + localStorage.getItem(localStorageKeys.accessToken)
                 }
             });
@@ -51,11 +53,11 @@ export const sendRecord = createAsyncThunk(
                     throw new Error("Неправильный логин или пароль!");
             }
 
-            response = await response.json();
-            console.log(response)
-            dispatch(setRecord(response));
+            // response = await response.json();
+            // console.log(response)
+            // dispatch(setRecord(response));
 
-            return response;
+            // return response;
         } catch (error) {
             return rejectWithValue(error.message);
         }
