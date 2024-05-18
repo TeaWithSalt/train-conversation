@@ -1,0 +1,57 @@
+.participantsCatalogPage {
+    height: 100%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    justify-content: center;
+    margin: 50px 0 30px 0;
+}
+
+.participantsCatalogPage__titleContainer {
+    display: flex;
+    justify-content: space-between;
+}
+
+.participantsCatalogPage__addButton {
+    width: 240px;
+}
+
+.participantsCatalogPage__content {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    justify-content: center;
+}
+
+.participantsCatalogPage__catalog {
+    width: 100%;
+}
+
+.participantsCatalogPage__participants {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.participantsCatalogPage__title {
+    display: flex;
+    gap: 10px;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.participantsCatalogPage__number {
+    font-weight: 400;
+}
+
+.participantsCatalogPage__participantCard {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    cursor: pointer;
+}
+
+.participantCard__name {
+    font-size: 24px;
+}

@@ -1,4 +1,38 @@
 .header {
     width: 100vw;
     background-color: #FFFFFF;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.header__logo {
+    justify-self: start;
+    background-color: #e21a1a;
+    height: 64px;
+    padding: 0 10px;
+}
+
+.header__navigation {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+.header__profile {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    justify-self: end;
+}
+
+.header__profile__name {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
 }

@@ -3,6 +3,7 @@ import {authRoutes} from "../features/auth/routes";
 import NotAuthGuard from "./guards/notAuthGuard";
 import AuthGuard from "./guards/authGuard";
 import {recordRoutes} from "../features/record/routes";
+import {participantsRoutes} from "../features/participant/routes";
 
 const routes = [
     {
@@ -14,7 +15,8 @@ const routes = [
     {
         element: <AuthGuard/>,
         children: [
-            ...recordRoutes
+            ...recordRoutes,
+            ...participantsRoutes
         ]
     }
 ];

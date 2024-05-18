@@ -20,7 +20,7 @@ export function LoginPage() {
                 className={styles.loginPage__logo}/>
             <div className={styles.loginPage__titleContainer}>
                 <h1 className={styles.loginPage__title}>С возвращением!</h1>
-                <p className={styles.loginPage__description}>Сервис для прослушивания РПЛ <br/>и фиксации нарушений требований регламента</p>
+                <p className={styles.loginPage__description}>РЖД.разговоры - сервис для прослушивания РПЛ <br/>и фиксации нарушений требований регламента</p>
             </div>
             <LoginForm/>
         </div>

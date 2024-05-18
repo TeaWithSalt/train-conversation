@@ -1,10 +1,47 @@
 .catalogPage {
-    width: 100vw;
-    height: 100vh;
+    height: 100%;
     position: relative;
     display: flex;
     flex-direction: column;
     gap: 20px;
+    justify-content: center;
+    margin: 50px 0 30px 0;
+}
+
+.catalogPage__titleContainer {
+    display: flex;
+    justify-content: space-between;
+}
+
+.catalogPage__addButton {
+    width: 240px;
+}
+
+.catalogPage__content {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    justify-content: center;
+}
+
+.catalogPage__left {
+    width: calc(100% - 470px);
+}
+
+.catalogPage__records {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.catalogPage__right {
+    width: 450px;
+}
+
+.catalogPage__filters {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     align-items: center;
-    margin: 0 auto;
+    gap: 20px
 }

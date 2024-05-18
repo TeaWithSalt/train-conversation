@@ -17,7 +17,10 @@ export class User {
     @Column()
     password: string;
 
-    @CreateDateColumn({select: false})
+    @Column()
+    avatarSrc: string;
+
+    @CreateDateColumn({select: true})
     created_at: Date;
 
     @UpdateDateColumn({select: false})

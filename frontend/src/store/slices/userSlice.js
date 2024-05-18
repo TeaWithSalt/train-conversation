@@ -4,7 +4,7 @@ import {localStorageKeys} from "../../core/models/localStorageKeys";
 
 
 export const getUserProfile = createAsyncThunk(
-    'user/profile',
+    'user',
     async function (user, {rejectWithValue, dispatch}) {
         try {
             let response = await fetch(API.USER, {
@@ -32,12 +32,10 @@ export const getUserProfile = createAsyncThunk(
 
 const initialState = {
     id: null,
-    login: null,
     email: null,
     firstName: null,
     secondName: null,
-    avatar: null,
-    projects: []
+    avatarSrc: null
 };
 
 const userSlice = createSlice({
@@ -46,21 +44,17 @@ const userSlice = createSlice({
     reducers: {
         setUser(state, action) {
             state.id = action.payload.id;
-            state.login = action.payload.login;
             state.email = action.payload.email;
             state.firstName = action.payload.firstName;
             state.secondName = action.payload.secondName;
-            state.avatar = action.payload.avatar;
-            state.projects = action.payload.projects;
+            state.avatarSrc = action.payload.avatarSrc;
         },
         removeUser(state) {
             state.id = null;
-            state.login = null;
             state.email = null;
             state.firstName = null;
             state.secondName = null;
-            state.avatar = null;
-            state.projects = null;
+            state.avatarSrc = null;
         },
     },
     extraReducers: builder => builder
