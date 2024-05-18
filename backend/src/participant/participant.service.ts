@@ -1,15 +1,17 @@
 import {BadRequestException, Injectable, NotFoundException} from '@nestjs/common';
 import {CreateParticipantDto} from './dto/create-participant.dto';
-import {UpdateParticipantDto} from './dto/update-participant.dto';
 import {Participant} from "./entities/participant.entity";
 import {InjectRepository} from "@nestjs/typeorm";
 import {Repository} from "typeorm";
+import {Error} from "../error/entities/error.entity";
 
 @Injectable()
 export class ParticipantService {
     constructor(
         @InjectRepository(Participant)
         private readonly participantRepository: Repository<Participant>,
+        @InjectRepository(Error)
+        private readonly errorRepository: Repository<Error>,
     ) {
     }
 
@@ -55,7 +57,20 @@ export class ParticipantService {
         if (!await this.isCreate(id))
             throw new NotFoundException("Record not found!")
 
-        return await this.participantRepository.findOne({
+        const errorsCount = await this.errorRepository.count({
+            where: {
+                recognition_text: {
+                    participant: {id}
+                }
+            },
+            relations: {
+                recognition_text: {
+                    participant: true
+                }
+            }
+        })
+
+        const participant = await this.participantRepository.findOne({
                 where: {id},
                 relations: {
                     records: {
@@ -63,10 +78,16 @@ export class ParticipantService {
                         participants: true
                     },
                     recognition_texts: {
-                        participant: true
+                        participant: true,
+                        errors: true
                     }
                 },
             },
         )
+
+        return {
+            ...participant,
+            errorsCount
+        }
     }
 }

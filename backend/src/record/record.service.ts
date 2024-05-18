@@ -101,7 +101,7 @@ export class RecordService {
             }
         });
 
-        const result = records.map(record => {
+        return records.map(record => {
             const errorsCount = record.recognition_texts.reduce(
                 (acc, cur) => acc + cur.errors.length,
                 0
@@ -112,8 +112,6 @@ export class RecordService {
                 errorsCount
             }
         })
-
-        return result;
     }
 
     async findOne(id: string) {
@@ -126,7 +124,8 @@ export class RecordService {
                     situationTable: true,
                     participants: true,
                     recognition_texts: {
-                        participant: true
+                        participant: true,
+                        errors: true
                     }
                 },
                 order: {
