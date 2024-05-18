@@ -38,28 +38,27 @@ export default function RecordInfo(props) {
             <div className={styles.recordInfo}>
                 <div className={styles.recordInfo__item}>
                     <p className={styles.recordInfo__item__title}>Дата начала записи</p>
-                    <p className={styles.recordInfo__item__value}>{new Date(recordInfo.date).toLocaleString()}</p>
+                    <p className={styles.recordInfo__item__value}>{new Date(props.record.date).toLocaleString()}</p>
                 </div>
                 <div className={styles.recordInfo__item}>
                     <p className={styles.recordInfo__item__title}>Участники</p>
                     <div className={styles.recordInfo__participants}>
                         {
-                            recordInfo.participants.map(participant => (
+                            props.record.participants.map(participant => (
                                 <div className={styles.recordInfo__participant}>
                                     <Avatar size={48} src={participant.avatarSrc}/>
                                     <div className={styles.recordInfo__participant__nameContainer}>
                                         <p className={styles.recordInfo__participant__name}>{participant.name}</p>
                                         <p className={styles.recordInfo__participant__role}>{participant.role}</p>
                                     </div>
-
                                 </div>
                             ))
                         }
                     </div>
                 </div>
                 <div className={styles.recordInfo__item}>
-                    <p className={styles.recordInfo__item__title}>Аудиозапись разговора</p>
-                    <ReactAudioPlayer src={recordInfo.audio} controls/>
+                    <p className={styles.recordInfo__item__title}>Аудиозапись переговоров</p>
+                    <ReactAudioPlayer src={props.record.audioSrc} controls/>
                 </div>
             </div>
         </Card>

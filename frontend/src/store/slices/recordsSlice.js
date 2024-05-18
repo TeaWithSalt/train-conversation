@@ -2,11 +2,11 @@ import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
 import API from '../../api/API';
 import {localStorageKeys} from "../../core/models/localStorageKeys";
 
-export const getParticipants = createAsyncThunk(
-    'participant/getAll',
+export const getRecords = createAsyncThunk(
+    'record/getAll',
     async function (_, {rejectWithValue, dispatch}) {
         try {
-            let response = await fetch(API.PARTICIPANT, {
+            let response = await fetch(API.RECORD, {
                 method: 'get',
                 headers: {
                     "Content-Type": "application/json",
@@ -20,7 +20,7 @@ export const getParticipants = createAsyncThunk(
             }
 
             response = await response.json();
-            dispatch(setParticipants(response));
+            dispatch(setRecords(response));
 
             return response;
         } catch (error) {
@@ -30,30 +30,27 @@ export const getParticipants = createAsyncThunk(
 );
 
 const initialState = {
-    roles: [],
-    participants: []
+    records: []
 };
 
-const participantsSlice = createSlice({
-        name: 'participants',
+const recordsSlice = createSlice({
+        name: 'records',
         initialState: initialState,
         reducers: {
-            setParticipants(state, action) {
-                state.roles = action.payload;
-                state.participants = action.payload.map(role => role.participants).flat(1);
+            setRecords(state, action) {
+                state.records = action.payload;
             },
-            removeParticipants(state) {
-                state.roles = [];
-                state.participants = [];
+            removeRecords(state) {
+                state.records = [];
             },
         },
         extraReducers: builder => builder
-            .addCase(getParticipants.rejected, (state, action) => {
+            .addCase(getRecords.rejected, (state, action) => {
                 throw new Error(action.payload);
             })
     })
 ;
 
-export const {setParticipants, removeParticipants} = participantsSlice.actions;
+export const {setRecords, removeRecords} = recordsSlice.actions;
 
-export default participantsSlice.reducer;
+export default recordsSlice.reducer;

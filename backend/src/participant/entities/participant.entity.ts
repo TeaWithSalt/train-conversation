@@ -1,5 +1,6 @@
-import {Column, Entity, JoinTable, ManyToMany, PrimaryGeneratedColumn} from "typeorm";
+import {Column, Entity, JoinTable, ManyToMany, OneToMany, PrimaryGeneratedColumn} from "typeorm";
 import {Record} from "../../record/entities/record.entity";
+import {RecognitionText} from "../../recognition-text/entities/recognition-text.entity";
 
 @Entity()
 export class Participant {
@@ -26,4 +27,7 @@ export class Participant {
         },
     })
     records: Record[];
+
+    @OneToMany(() => RecognitionText, (recognitionText) => recognitionText.participant, {nullable: true})
+    recognition_texts: RecognitionText[];
 }

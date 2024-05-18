@@ -1,42 +1,26 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import styles from './RecordPage.module.css'
-import {Breadcrumb, DatePicker} from "antd";
+import {Breadcrumb, Spin} from "antd";
 import {Link, useNavigate, useParams} from "react-router-dom";
 import RecordRecognitionText from "../../components/RecordRecognitionText/RecordRecognitionText";
 import RecordInfo from "../../components/RecordInfo/RecordInfo";
 import RecordSituationTable from "../../components/RecordSituationTable/RecordSituationTable";
+import {useDispatch} from "react-redux";
+import {getRecord} from "../../../../store/slices/recordSlice";
+import {useRecord} from "../../../../hooks/use-record";
 
-const {RangePicker} = DatePicker;
-
-const onOk = (value) => {
-    console.log('onOk: ', value);
-};
 
 export function RecordPage(props) {
-    const navigate = useNavigate()
+    const dispatch = useDispatch()
     const {recordId} = useParams()
+    const record = useRecord()
 
-    const record = {
-        situation: {
-            id: 2,
-            name: "Безостановочный пропуск поезда по главному железнодорожному пути железнодорожной станции при открытых входном (маршрутных) и выходном светофорах на однопутный перегон или по правильному железнодорожному пути двухпутного перегона при нормальном действии автоблокировки (полуавтоматической блокировки) и отсутствии необходимости в передаче дополнительных предупреждений\n"
-        },
-        date: "2024-05-17T17:30:52.255Z",
-        participants: [
-            {
-                id: 1,
-                name: "Галимзянов Айнур",
-                role: "Диспетчер",
-                avatarSrc: "https://i.pravatar.cc/150?img=12"
-            },
-            {
-                id: 2,
-                name: "Килязова Юния",
-                role: "Машинист",
-                avatarSrc: "https://i.pravatar.cc/150?img=44"
-            }
-        ]
-    }
+    useEffect(() => {
+        dispatch(getRecord(recordId))
+    }, [])
+
+    if (!record.record)
+        return <Spin className={styles.spin}/>
 
     return (
         <div className={styles.recordPage}>
@@ -46,17 +30,18 @@ export function RecordPage(props) {
                         title: <Link to="/">Записи разговоров</Link>,
                     },
                     {
-                        title: 'Запись от ' + new Date(record.date).toLocaleString(),
+                        title: 'Запись от ' + new Date(record.record.date).toLocaleString(),
                     }
                 ]}
             />
             <div className={styles.recordPage__container}>
                 <div className={styles.recordPage__left}>
-                    <RecordSituationTable/>
-                    <RecordRecognitionText/>
+                    <RecordSituationTable table={record.record.situationTable}
+                                          content={JSON.parse(record.record.situationTableContent)}/>
+                    <RecordRecognitionText recognitionChats={record.record.recognition_texts}/>
                 </div>
                 <div className={styles.recordPage__right}>
-                    <RecordInfo/>
+                    <RecordInfo record={record.record}/>
                 </div>
             </div>
         </div>

@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import styles from './ParticipantsCatalogPage.module.css'
-import {Avatar, Button, Card, Collapse, DatePicker} from "antd";
+import {Avatar, Button, Card, Collapse, DatePicker, Spin} from "antd";
 import AddRecordModal from "../../../../components/AddRecordModal/AddRecordModal";
 import {PlusOutlined} from "@ant-design/icons";
 import {useParticipants} from "../../../../hooks/use-participants";
@@ -22,12 +22,15 @@ export function ParticipantsCatalogPage(props) {
         dispatch(getParticipants())
     }, []);
 
+    if(!participants)
+        return <Spin/>
+
     return (
         <div className={styles.participantsCatalogPage}>
             <div className={styles.participantsCatalogPage__titleContainer}>
-                <h1>Участники разговоров</h1>
+                <h1>Участники переговоров</h1>
                 <Button
-                    type="default"
+                    type="primary"
                     onClick={() => setIsAddParticipantModalOpen(true)}
                     className={styles.participantsCatalogPage__addButton}
                     size="large"
@@ -39,7 +42,6 @@ export function ParticipantsCatalogPage(props) {
             <div className={styles.participantsCatalogPage__content}>
                 <Collapse
                     className={styles.participantsCatalogPage__catalog}
-                    defaultActiveKey={participants.roles}
                     size="medium"
                     ghost={true}
                     items={

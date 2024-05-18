@@ -1,30 +1,22 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
-import { SituationTableService } from './situation-table.service';
-import { CreateSituationTableDto } from './dto/create-situation-table.dto';
-import { UpdateSituationTableDto } from './dto/update-situation-table.dto';
+import {Controller, Get, Param, UseGuards} from '@nestjs/common';
+import {SituationTableService} from './situation-table.service';
+import {JwtAuthGuard} from "../auth/guards/jwt-auth.guard";
 
 @Controller('situation-table')
 export class SituationTableController {
-  constructor(private readonly situationTableService: SituationTableService) {}
+  constructor(private readonly situationTableService: SituationTableService) {
+  }
 
 
   @Get()
+  @UseGuards(JwtAuthGuard)
   findAll() {
     return this.situationTableService.findAll();
   }
 
   @Get(':id')
+  @UseGuards(JwtAuthGuard)
   findOne(@Param('id') id: string) {
-    return this.situationTableService.findOne(+id);
-  }
-
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateSituationTableDto: UpdateSituationTableDto) {
-    return this.situationTableService.update(+id, updateSituationTableDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.situationTableService.remove(+id);
+    return this.situationTableService.findOne(id);
   }
 }

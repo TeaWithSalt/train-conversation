@@ -8,6 +8,7 @@ import {AuthModule} from './auth/auth.module';
 import { RecordModule } from './record/record.module';
 import { ParticipantModule } from './participant/participant.module';
 import { SituationTableModule } from './situation-table/situation-table.module';
+import { RecognitionTextModule } from './recognition-text/recognition-text.module';
 
 @Module({
     imports: [
@@ -30,7 +31,8 @@ import { SituationTableModule } from './situation-table/situation-table.module';
         AuthModule,
         RecordModule,
         ParticipantModule,
-        SituationTableModule
+        SituationTableModule,
+        RecognitionTextModule
     ],
     controllers: [AppController],
     providers: [AppService],

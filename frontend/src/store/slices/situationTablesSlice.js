@@ -9,7 +9,8 @@ export const getSituations = createAsyncThunk(
             let response = await fetch(API.SITUATION_TABLE, {
                 method: 'get',
                 headers: {
-                    "Content-Type": "application/json"
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer " + localStorage.getItem(localStorageKeys.accessToken)
                 }
             });
 

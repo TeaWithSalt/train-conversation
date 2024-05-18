@@ -1,5 +1,4 @@
-import {Injectable} from '@nestjs/common';
-import {UpdateRecordDto} from './dto/update-record.dto';
+import {Injectable, NotFoundException} from '@nestjs/common';
 import {InjectRepository} from "@nestjs/typeorm";
 import {Record} from "./entities/record.entity";
 import {Repository} from "typeorm";
@@ -11,6 +10,11 @@ export class RecordService {
         @InjectRepository(Record)
         private readonly recordRepository: Repository<Record>,
     ) {
+    }
+
+    async isCreate(id: string) {
+        const record = await this.recordRepository.findOneBy({id})
+        return !!record;
     }
 
     async create(createRecordDto: CreateRecordDto, file: Express.Multer.File) {
@@ -30,19 +34,43 @@ export class RecordService {
         // return {recordID: res.id}
     }
 
-    findAll() {
-        return `This action returns all record`;
+    async findAll() {
+        return await this.recordRepository.find({
+            relations: {
+                situationTable: true,
+                participants: true,
+            },
+            select: {
+                id: true,
+                date: true,
+                situationTable: {
+                    id: true,
+                    name: true
+                },
+                participants: {
+                    id: true,
+                    name: true,
+                    role: true,
+                    avatarSrc: true
+                }
+            }
+        });
     }
 
-    findOne(id: number) {
-        return `This action returns a #${id} record`;
-    }
+    async findOne(id: string) {
+        if (!await this.isCreate(id))
+            throw new NotFoundException("Record not found!")
 
-    update(id: number, updateRecordDto: UpdateRecordDto) {
-        return `This action updates a #${id} record`;
-    }
-
-    remove(id: number) {
-        return `This action removes a #${id} record`;
+        return await this.recordRepository.findOne({
+                where: {id},
+                relations: {
+                    situationTable: true,
+                    participants: true,
+                    recognition_texts: {
+                        participant: true
+                    }
+                },
+            },
+        )
     }
 }

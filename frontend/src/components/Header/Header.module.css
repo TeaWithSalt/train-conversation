@@ -13,6 +13,7 @@
     background-color: #e21a1a;
     height: 64px;
     padding: 0 10px;
+    transform: translateX(-50px);
 }
 
 .header__navigation {

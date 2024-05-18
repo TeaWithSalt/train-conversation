@@ -6,46 +6,6 @@ import styles from "./RecordRecognitionText.module.css"
 export default function RecordRecognitionText(props) {
     const navigate = useNavigate()
 
-    const recognitionText = [
-        {
-            participant: {
-                id: 2,
-                name: "Килязова Юния",
-                role: "Машинист",
-                avatarSrc: "https://i.pravatar.cc/150?img=44"
-            },
-            message: "<mark>22-ой машинист</mark> Карабин на перегоне Красногвардеец- 2 Погромное"
-        },
-        {
-            participant: {
-                id: 1,
-                name: "Галимзянов Айнур",
-                role: "Диспетчер",
-                avatarSrc: "https://i.pravatar.cc/150?img=12"
-            },
-            message: "2422 Карабин, слушает Вас"
-        },
-        {
-            participant: {
-                id: 2,
-                name: "Килязова Юния",
-                role: "Машинист",
-                avatarSrc: "https://i.pravatar.cc/150?img=44"
-            },
-            message: "<mark>Здравствуйте</mark>, машинист. <mark>Не затягивайтесь, хорошо</mark>. До станции Сорочинская проедьте, пожалуйста. По Тоцкой по первому пути будет ехать ДНЦ Бахтинова"
-        },
-        {
-            participant: {
-                id: 1,
-                name: "Галимзянов Айнур",
-                role: "Диспетчер",
-                avatarSrc: "https://i.pravatar.cc/150?img=12"
-            },
-            message: "Понятно. С Тоцкой по первому пути до Сорочинск максимально допустимой следуем Бахтинова Карабин"
-        }
-
-    ]
-
     return (
         <Card>
             <h2>
@@ -53,8 +13,8 @@ export default function RecordRecognitionText(props) {
             </h2>
             <div className={styles.recognitionText}>
                 {
-                    recognitionText &&
-                    recognitionText.map(chat => (
+                    props.recognitionChats &&
+                    props.recognitionChats.map(chat => (
                         <div className={styles.chat}>
                             <Avatar size={48} src={chat.participant.avatarSrc}/>
                             <Flex vertical={true}>

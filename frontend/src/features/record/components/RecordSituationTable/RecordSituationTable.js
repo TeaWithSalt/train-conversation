@@ -32,7 +32,7 @@ export default function RecordSituationTable(props) {
     return (
         <Card>
             <h2>
-                Извлечённые данные по ситуации: {situationTable.name}
+                Извлечённые данные по ситуации: {props.table.name}
             </h2>
             <div className={styles.situationTable}>
                 <Table
@@ -44,7 +44,7 @@ export default function RecordSituationTable(props) {
                             // title: 'Поле',
                             dataIndex: 'label',
                             key: 'label',
-                            width: "150px"
+                            width: "300px"
                         },
                         {
                             // title: 'Age',
@@ -52,17 +52,8 @@ export default function RecordSituationTable(props) {
                             key: 'value',
                         }
                     ]}
-                    dataSource={situationTable.table}
+                    dataSource={props.content}
                 />
-                {/*<Descriptions*/}
-                {/*    column={1}*/}
-                {/*    items={*/}
-                {/*        situationTable.table.map((field, index) => ({*/}
-                {/*            key: "situationTable" + index,*/}
-                {/*            label: field.label,*/}
-                {/*            children: field.value,*/}
-                {/*        }))*/}
-                {/*    }/>*/}
             </div>
         </Card>
     );

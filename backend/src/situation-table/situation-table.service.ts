@@ -22,15 +22,7 @@ export class SituationTableService {
         return await this.situationTableRepository.find();
     }
 
-    findOne(id: number) {
+    findOne(id: string) {
         return `This action returns a #${id} situationTable`;
-    }
-
-    update(id: number, updateSituationTableDto: UpdateSituationTableDto) {
-        return `This action updates a #${id} situationTable`;
-    }
-
-    remove(id: number) {
-        return `This action removes a #${id} situationTable`;
     }
 }

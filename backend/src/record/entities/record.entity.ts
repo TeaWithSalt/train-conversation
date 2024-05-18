@@ -1,6 +1,7 @@
-import {Column, Entity, JoinColumn, ManyToMany, ManyToOne, PrimaryGeneratedColumn} from "typeorm";
+import {Column, Entity, JoinColumn, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn} from "typeorm";
 import {Participant} from "../../participant/entities/participant.entity";
 import {SituationTable} from "../../situation-table/entities/situation-table.entity";
+import {RecognitionText} from "../../recognition-text/entities/recognition-text.entity";
 
 @Entity()
 export class Record {
@@ -8,10 +9,7 @@ export class Record {
     id: string;
 
     @Column()
-    audionSrc: string;
-
-    @Column()
-    recognitionText: string;
+    audioSrc: string;
 
     @Column()
     situationTableContent: string;
@@ -25,4 +23,7 @@ export class Record {
 
     @ManyToMany(() => Participant, (participant) => participant.records, {onDelete: "CASCADE"})
     participants: Participant[]
+
+    @OneToMany(() => RecognitionText, (recognitionText) => recognitionText.record, {nullable: true})
+    recognition_texts: RecognitionText[];
 }
