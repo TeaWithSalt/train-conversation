@@ -5,9 +5,15 @@ import whisper
 from flask_swagger_ui import get_swaggerui_blueprint
 from werkzeug.utils import secure_filename
 from flask_cors import cross_origin
-from pydub import AudioSegment
-from pydub.silence import detect_nonsilent
 import os
+import librosa
+import soundfile
+from os import path
+from pydub import AudioSegment
+import noisereduce as nr
+from rnnoise_wrapper import RNNoise
+from pydub.silence import split_on_silence
+
 
 UPLOAD_FOLDER = 'uploads'
 app = Flask(__name__)
@@ -29,23 +35,30 @@ swaggerui_blueprint = get_swaggerui_blueprint(
 app.register_blueprint(swaggerui_blueprint, url_prefix=SWAGGER_URL)
 
 
-def remove_silence(audio_path, filename, min_silence_len=1000, silence_thresh=-40):
-    audio = AudioSegment.from_file(audio_path)
-    nonsilent_parts = detect_nonsilent(
-        audio,
-        min_silence_len=min_silence_len,
-        silence_thresh=silence_thresh
-    )
 
-    if not nonsilent_parts:
-        return audio
+def trimAudio(save_path):
+   # w, s = librosa.load(save_path)
+    #w = librosa.effects.trim(w, top_db=25)[0]
 
-    start = nonsilent_parts[0][0]
-    end = nonsilent_parts[-1][1]
-    trimmed_audio = audio[start:end]
 
-    processed_save_path = os.path.join(app.config['UPLOAD_FOLDER'], 'd_' + filename)
-    trimmed_audio.export(processed_save_path, format="mp3")
+    #soundfile.write(save_path, w, s)
+
+
+    audio2 = AudioSegment.from_wav(save_path)
+    chunks = split_on_silence(audio2, min_silence_len=650, silence_thresh=-60)
+    output = AudioSegment.empty()
+    for chunk in chunks:
+        output += chunk
+
+
+    save_path = os.path.join(app.config['UPLOAD_FOLDER'], "filename.wav")
+    output.export(save_path, format="wav")
+
+
+
+
+
+    return save_path
 
 
 
@@ -53,25 +66,26 @@ def remove_silence(audio_path, filename, min_silence_len=1000, silence_thresh=-4
 @cross_origin()
 def audioToText():
     audio_file = request.files['audio']
+    print(audio_file)
     filename = secure_filename(audio_file.filename)
     save_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
     audio_file.save(save_path)
 
-    #remove_silence(audio_file, filename)
+    s = trimAudio(save_path)
 
-    #p = os.path.join(app.config['UPLOAD_FOLDER'], 'd_' + filename)
-    asr_result = model.transcribe(save_path, language="russian")
-    diarization_result = pipeline(save_path, num_speakers=2)
-    #os.remove(save_path)
-    #os.remove(p)
+    asr_result = model.transcribe(s, language="russian")
+    diarization_result = pipeline(s, num_speakers=2)
+   # os.remove(save_path)
     final_result = diarize_text(asr_result, diarization_result)
 
 
     str = {}
     str["all"] = []
+    str["dialogue"] = []
     str["notDefine"] = []
     for seg, spk, sent in final_result:
         line = f'{seg.start:.2f} {seg.end:.2f} {spk} {sent}'
+        line1 = f'{spk}: {sent}'
         if spk is None:
             str["notDefine"].append(line)
             continue
@@ -80,12 +94,11 @@ def audioToText():
         else:
             str[spk].append(line)
         str["all"].append(line)
-
-    print(final_result)
-    print(str)
+        str["dialogue"].append(line1)
 
     return jsonify(str)
 
 
 if __name__ == '__main__':
-    app.run()
+    app.run('0.0.0.0', port=5001)
+
