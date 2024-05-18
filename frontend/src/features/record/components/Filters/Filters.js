@@ -37,7 +37,7 @@ export default function Filters({
             tempRecords = tempRecords.filter(record => situationsFilter.includes(record.situation.id), 0)
 
         props.setRecords(tempRecords)
-    }, [participantsFilter, situationsFilter])
+    }, [props.records, participantsFilter, situationsFilter])
 
 
     if (!participants || !situations || !props.records)
