@@ -31,10 +31,15 @@
     color: var(--color-gray-100);
 }
 
-.recordCount {
+.errorCount {
     color: var(--color-red-700);
     font-size: 14px;
     margin-top: 20px;
+}
+
+.recordCount {
+    color: var(--color-red-700);
+    font-size: 14px;
 }
 
 .records {

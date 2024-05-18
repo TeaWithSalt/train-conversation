@@ -6,7 +6,7 @@ import {getParticipant} from "../../../../store/slices/participantSlice";
 import {useParticipant} from "../../../../hooks/use-participant";
 import styles from './ParticipantPage.module.css'
 import Filters from "../../../record/components/Filters/Filters";
-import RecordCard from "../../components/RecordCard/RecordCard";
+import RecordCard from "../../../../components/RecordCard/RecordCard";
 import {ReactComponent as Empty} from "../../../../assets/images/Empty.svg";
 
 const ParticipantPage = () => {
@@ -32,9 +32,14 @@ const ParticipantPage = () => {
                     <Typography className={styles.role}>
                         {participant.role}
                     </Typography>
-                    <Typography className={styles.recordCount}>
-                        Записи: {participant.recordCount}
-                    </Typography>
+                    <div>
+                        <Typography className={styles.errorCount}>
+                            Количество ошибок: {participant.errorsCount}
+                        </Typography>
+                        <Typography className={styles.recordCount}>
+                            Количество записей: {participant.records.length}
+                        </Typography>
+                    </div>
                 </div>
             </div>
             <h1 className={styles.records}>

@@ -2,9 +2,9 @@ import React, {useCallback, useMemo} from 'react';
 import styles from "./RecordCard.module.css"
 import {Card} from "antd";
 import {useNavigate} from "react-router-dom";
-import ParticipantInfo from "../ParticipantInfo/ParticipantInfo";
-import {getDateFromISO} from "../../../../lib/getDateFromISO";
-import {getTime} from "../../../../lib/getTime";
+import ParticipantInfo from "../../features/record/components/ParticipantInfo/ParticipantInfo";
+import {getDateFromISO} from "../../lib/getDateFromISO";
+import {getTime} from "../../lib/getTime";
 
 export default function RecordCard(props) {
     const navigate = useNavigate()
@@ -44,7 +44,7 @@ export default function RecordCard(props) {
                                                       strokeLinecap="round"
                                                       strokeDasharray="10 10">
                                                     <animate attributeName="stroke-dashoffset" values="900;0" dur="20s"
-                                                             repeatCount="indefinite" begin={(props.index % 2) + "s"}/>
+                                                             repeatCount="indefinite"/>
                                                 </path>
                                             </svg>
                                             <p className={styles.durationValue}>
@@ -61,7 +61,7 @@ export default function RecordCard(props) {
                         <div className={styles.statisticsLine}>
                             <p className={styles.statisticsKey}>Ошибок</p>
                             <p className={`${styles.statisticsValue} ${styles.statisticsValueError}`}>
-                                {props.record.errorsCount}
+                                {props.record.errorsCount || 0}
                             </p>
                         </div>
                         <div className={styles.statisticsLine}>
