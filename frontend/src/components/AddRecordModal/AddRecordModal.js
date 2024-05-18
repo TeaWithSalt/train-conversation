@@ -1,9 +1,14 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import styles from "./AddRecordModal.module.css"
 import {App, Avatar, Button, DatePicker, Flex, Form, Modal, Select, Space, Upload} from "antd";
 import {useDispatch} from "react-redux";
 import {InboxOutlined} from "@ant-design/icons";
+import {createRecord} from "../../store/slices/recordSlice";
+import {useParticipants} from "../../hooks/use-participants";
+import {useSituations} from "../../hooks/use-situations";
+import {getParticipants} from "../../store/slices/participantsSlice";
+import {getSituations} from "../../store/slices/situationTablesSlice";
 
 const {Dragger} = Upload;
 
@@ -14,6 +19,12 @@ export default function AddRecordModal(props) {
     const {message} = App.useApp();
 
     const [fileList, setFileList] = useState([]);
+
+    const participants = useParticipants()
+
+    useEffect(() => {
+        dispatch(getParticipants())
+    }, []);
 
 
     const options = [
@@ -42,24 +53,21 @@ export default function AddRecordModal(props) {
     const addRecord = (payload) => {
         if (!isLoading) {
             setIsLoading(true);
-            console.log(payload, fileList)
-            // message.loading({content: "Вхожу в аккаунт...", key: 'logIn', duration: 0})
-            //
-            // const data = {
-            //     email: payload.email,
-            //     password: payload.password
-            // }
-            //
-            // dispatch(loginUser(data)).then((response) => {
-            //     setIsLoading(false)
-            //     message.destroy('logIn')
-            //     message.success({content: "Вы успешно авторизовались"})
-            //     navigate("/")
-            // }, (error) => {
-            //     setIsLoading(false)
-            //     message.destroy('logIn')
-            //     message.error({content: error.message})
-            // });
+            message.loading({content: "Обрабатываю запись...", key: 'addRecord', duration: 0})
+
+            dispatch(createRecord({
+                date: payload.date,
+                participants: payload.participants,
+                file: fileList[0]
+            })).then((response) => {
+                setIsLoading(false)
+                message.destroy('addRecord')
+                message.success({content: "Запись успешно добавлена"})
+            }, (error) => {
+                setIsLoading(false)
+                message.destroy('addRecord')
+                message.error({content: error.message})
+            });
         }
     }
 
@@ -68,7 +76,7 @@ export default function AddRecordModal(props) {
             title="Добавление записи с РПЛ"
             open={props.isModalOpen}
             onCancel={() => props.setIsModalOpen(false)}
-            footer={<></>}
+            footer={null}
             className={styles.addRecordModal}
         >
             <Form
@@ -102,8 +110,15 @@ export default function AddRecordModal(props) {
                             size="large"
                             style={{width: '100%'}}
                             placeholder="Выберите двух участников"
-                            // onChange={handleChange}
-                            options={options}
+                            options={participants.roles.map(role => ({
+                                label: <span>{role.roleName}</span>,
+                                title: role.roleName,
+                                options: role.participants.map(participant => ({
+                                    label: <span>{participant.name}</span>,
+                                    value: participant.id,
+                                    avatarSrc: participant.avatarSrc
+                                }))
+                            }))}
                             optionRender={(option) => (
                                 <Space>
                                     <Avatar size={"small"} src={option.data.avatarSrc} alt=""/>

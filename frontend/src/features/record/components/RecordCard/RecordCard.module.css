@@ -5,8 +5,14 @@
     gap: 10px;
 }
 
-.recordCard__down,
+
 .recordCard__up {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.recordCard__down {
     display: flex;
     justify-content: space-between;
 }
@@ -30,11 +36,11 @@
 }
 
 .recordCard__date {
-    color: #979797;
+    color: #5A5A5A;
+    font-size: 16px;
 }
 
 .recordCard__situation {
-    width: 800px;
     font-size: 16px;
 }
 
@@ -57,9 +63,8 @@
 
 .recordCard__more {
     font-size: 16px;
-    line-height: 30px;
     font-weight: 600;
-    color: #C2C2C2;
+    color: #e21a1a;
 }
 
 .recordCard__moreContainer {

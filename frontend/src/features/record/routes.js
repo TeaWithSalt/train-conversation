@@ -1,5 +1,5 @@
 import React from 'react';
-import {CatalogPage} from "./pages/CatalogPage/CatalogPage";
+import {RecordCatalogPage} from "./pages/RecordCatalogPage/RecordCatalogPage";
 import MainLayout from "../../components/MainLayout/MainLayout";
 import {RecordPage} from "./pages/RecordPage/RecordPage";
 
@@ -9,7 +9,7 @@ export const recordRoutes = [
         children: [
             {
                 path: '',
-                element: <CatalogPage/>
+                element: <RecordCatalogPage/>
             },
             {
                 path: 'record/:recordId',

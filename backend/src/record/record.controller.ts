@@ -34,7 +34,7 @@ export class RecordController {
            @UploadedFile(
                new ParseFilePipeBuilder()
                    .addFileTypeValidator({
-                       fileType: 'mp3',
+                       fileType: 'audio/wav',
                    }).build({
                    errorHttpStatusCode: HttpStatus.UNPROCESSABLE_ENTITY
                })

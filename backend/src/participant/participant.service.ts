@@ -1,4 +1,4 @@
-import {BadRequestException, Injectable} from '@nestjs/common';
+import {BadRequestException, Injectable, NotFoundException} from '@nestjs/common';
 import {CreateParticipantDto} from './dto/create-participant.dto';
 import {UpdateParticipantDto} from './dto/update-participant.dto';
 import {Participant} from "./entities/participant.entity";
@@ -11,6 +11,11 @@ export class ParticipantService {
         @InjectRepository(Participant)
         private readonly participantRepository: Repository<Participant>,
     ) {
+    }
+
+    async isCreate(id: string) {
+        const participant = await this.participantRepository.findOneBy({id})
+        return !!participant;
     }
 
     async create(createParticipantDto: CreateParticipantDto) {
@@ -46,15 +51,22 @@ export class ParticipantService {
         }))
     }
 
-    findOne(id: number) {
-        return `This action returns a #${id} participant`;
-    }
+    async findOne(id: string) {
+        if (!await this.isCreate(id))
+            throw new NotFoundException("Record not found!")
 
-    update(id: number, updateParticipantDto: UpdateParticipantDto) {
-        return `This action updates a #${id} participant`;
-    }
-
-    remove(id: number) {
-        return `This action removes a #${id} participant`;
+        return await this.participantRepository.findOne({
+                where: {id},
+                relations: {
+                    records: {
+                        situationTable: true,
+                        participants: true
+                    },
+                    recognition_texts: {
+                        participant: true
+                    }
+                },
+            },
+        )
     }
 }

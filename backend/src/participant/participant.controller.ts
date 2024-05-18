@@ -5,23 +5,24 @@ import {JwtAuthGuard} from "../auth/guards/jwt-auth.guard";
 
 @Controller('participant')
 export class ParticipantController {
-  constructor(private readonly participantService: ParticipantService) {}
+    constructor(private readonly participantService: ParticipantService) {
+    }
 
-  @Post()
-  @UseGuards(JwtAuthGuard)
-  create(@Body() createParticipantDto: CreateParticipantDto) {
-    return this.participantService.create(createParticipantDto);
-  }
+    @Post()
+    @UseGuards(JwtAuthGuard)
+    create(@Body() createParticipantDto: CreateParticipantDto) {
+        return this.participantService.create(createParticipantDto);
+    }
 
-  @Get()
-  @UseGuards(JwtAuthGuard)
-  findAll() {
-    return this.participantService.findAll();
-  }
+    @Get()
+    @UseGuards(JwtAuthGuard)
+    findAll() {
+        return this.participantService.findAll();
+    }
 
-  @Get(':id')
-  @UseGuards(JwtAuthGuard)
-  findOne(@Param('id') id: string) {
-    return this.participantService.findOne(+id);
-  }
+    @Get(':id')
+    @UseGuards(JwtAuthGuard)
+    findOne(@Param('id') id: string) {
+        return this.participantService.findOne(id);
+    }
 }

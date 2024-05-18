@@ -13,10 +13,12 @@ export default function RecordCard(props) {
             <div className={styles.recordCard}>
                 <div className={styles.recordCard__up}>
                     <p className={styles.recordCard__situation}>{props.record.situationTable.name}</p>
-
-                    <p className={styles.recordCard__date}>{new Date(props.record.date).toLocaleString()}</p>
+                    <p className={styles.recordCard__date}>{new Date(props.record.date).toDateString()}</p>
+                    <div className={styles.recordCard__moreContainer} onClick={() => navigate("record/" + props.record.id)}>
+                        <p className={styles.recordCard__more}>Подробнее</p>
+                    </div>
                 </div>
-                <div className={styles.recordCard__middle}>
+                <div className={styles.recordCard__mainContainer}>
                     <div className={styles.recordCard__participants}>
                         {props.record.participants.map((participant, index) => (
                             <>
@@ -33,12 +35,13 @@ export default function RecordCard(props) {
                         ))}
                     </div>
                 </div>
+
+
+                <div className={styles.recordCard__middle}>
+
+                </div>
                 <div className={styles.recordCard__down}>
                     <p className={styles.recordCard__error}>Обнаружено: <p className={styles.recordCard__error__count}>5 ошибок</p></p>
-                    <div className={styles.recordCard__moreContainer} onClick={() => navigate("record/" + props.record.id)}>
-                        <p className={styles.recordCard__more}>Подробнее</p>
-                        <Arrow width={20} height={33} className={styles.recordCard__arrow}/>
-                    </div>
                 </div>
             </div>
         </Card>

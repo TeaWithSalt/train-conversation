@@ -20,6 +20,18 @@ export class RecordService {
     async create(createRecordDto: CreateRecordDto, file: Express.Multer.File) {
         console.log(createRecordDto, file)
 
+        const formData = new FormData();
+        let blob = new Blob([file.buffer], { type: file.mimetype })
+        formData.append("file", blob, file.originalname);
+
+        let response = await fetch("http://89.208.216.16:5001/audio-to-text", {
+            method: 'post',
+            body: formData
+        });
+
+        response = await response.json();
+        console.log(response)
+
         const newRecord = {
             // name: createBookDto.name,
             // description: createBookDto.description,
@@ -70,6 +82,11 @@ export class RecordService {
                         participant: true
                     }
                 },
+                order: {
+                    recognition_texts: {
+                        order_number: "ASC"
+                    }
+                }
             },
         )
     }

@@ -10,6 +10,9 @@ export class RecognitionText {
     @Column()
     message: string;
 
+    @Column()
+    order_number: number;
+
     @ManyToOne(() => Participant, (participant) => participant.recognition_texts, {nullable: true})
     @JoinColumn({ name: 'participant'})
     participant: Participant;
