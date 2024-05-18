@@ -1,7 +1,24 @@
 .filters {
     display: flex;
-    flex-direction: column;
-    justify-content: center;
     align-items: center;
-    gap: 20px
+    background-color: var(--color-white-500);
+}
+
+.extraOptions {
+    color: var(--color-red-700)
+}
+
+.extraOptionsList {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.rangePicker {
+    border-color: transparent;
+    border-right-color: var(--color-white-200);
+    padding: 16px 20px;
+    border-radius: 0;
+    width: 357px;
+    flex-shrink: 0;
 }

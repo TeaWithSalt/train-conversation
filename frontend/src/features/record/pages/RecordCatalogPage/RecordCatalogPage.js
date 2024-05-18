@@ -36,24 +36,18 @@ export function RecordCatalogPage(props) {
                 </Button>
             </div>
             <div className={styles.catalogPage__content}>
-                <div className={styles.catalogPage__left}>
-                    <div className={styles.catalogPage__records}>
-                        {
-                            displayRecords && displayRecords.length > 0 &&
-                            displayRecords.map((record, index) => (
-                                <RecordCard record={record} index={index}/>
-                            ))
-                        }
-                        {
-                            displayRecords.length === 0 &&
-                            <p>Нет записей!</p>
-                        }
-                    </div>
-                </div>
-                <div className={styles.catalogPage__right}>
-                    <Card>
-                        <Filters records={records.records} setRecords={setDisplayRecords}/>
-                    </Card>
+                <Filters records={records.records} setRecords={setDisplayRecords}/>
+                <div className={styles.catalogPage__records}>
+                    {
+                        displayRecords && displayRecords.length > 0 &&
+                        displayRecords.map((record, index) => (
+                            <RecordCard record={record} index={index}/>
+                        ))
+                    }
+                    {
+                        displayRecords.length === 0 &&
+                        <p>Нет записей!</p>
+                    }
                 </div>
             </div>
             <AddRecordModal isModalOpen={isAddRecordModalOpen} setIsModalOpen={setIsAddRecordModalOpen}/>

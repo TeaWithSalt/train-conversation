@@ -1,12 +1,13 @@
 import React, {useEffect, useState} from 'react';
 import styles from "./Filters.module.css"
-import {Avatar, DatePicker, Select, Space, Spin} from "antd";
+import {Avatar, DatePicker, Select, Space, Spin, Tooltip} from "antd";
 import {useNavigate} from "react-router-dom";
 import {useDispatch} from "react-redux";
 import {getParticipants} from "../../../../store/slices/participantsSlice";
 import {useParticipants} from "../../../../hooks/use-participants";
 import {getSituations} from "../../../../store/slices/situationTablesSlice";
 import {useSituations} from "../../../../hooks/use-situations";
+import './style.css'
 
 const {RangePicker} = DatePicker;
 
@@ -52,8 +53,7 @@ export default function Filters({
     }
 
     return (
-        <div className={styles.filters}>
-            <h3>Фильтры</h3>
+        <div className={`${styles.filters} Filters`}>
             <RangePicker
                 allowEmpty={[false, true]}
                 showTime={{format: 'HH:mm:ss'}}
@@ -64,6 +64,7 @@ export default function Filters({
                 }}
                 onOk={() => {
                 }}
+                className={styles.rangePicker}
                 placeholder={["Разговоры от", "Разговоры до"]}
             />
             {withParticipants && <Select
@@ -71,6 +72,21 @@ export default function Filters({
                 style={{width: '100%'}}
                 placeholder="Участники разговора"
                 value={participantsFilter}
+                maxTagCount={1}
+                maxTagPlaceholder={(omittedValues) => (
+                    <Tooltip
+                        title={
+                            <div className={styles.extraOptionsList}>
+                                {omittedValues
+                                    .map(({label}) => <span>{label}</span>)
+                                }
+                            </div>
+                        }
+                    >
+                        <span className={styles.extraOptions}>+{omittedValues.length}</span>
+                    </Tooltip>
+                )}
+                className={styles.select}
                 onChange={onChangeParticipantsFilter}
                 options={participants.roles.map(role => ({
                     label: <span>{role.roleName}</span>,
@@ -100,7 +116,22 @@ export default function Filters({
                     value: situation.id,
                     label: situation.name
                 }))}
+                className={`${styles.select} lastSelect`}
                 allowClear={true}
+                maxTagCount={1}
+                maxTagPlaceholder={(omittedValues) => (
+                    <Tooltip
+                        title={
+                            <div className={styles.extraOptionsList}>
+                                {omittedValues
+                                    .map(({label}) => <span>{label}</span>)
+                                }
+                            </div>
+                        }
+                    >
+                        <span className={styles.extraOptions}>+{omittedValues.length}</span>
+                    </Tooltip>
+                )}
             />
         </div>
     );

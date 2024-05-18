@@ -1,0 +1,12 @@
+.Filters .ant-select-selector {
+    padding: 16px 20px;
+    border-radius: 0;
+    border-color: transparent !important;
+    border-right-color: var(--color-white-200) !important;
+}
+
+.Filters .lastSelect .ant-select-selector {
+    padding: 16px 20px;
+    border-radius: 0;
+    border-color: transparent !important;;
+}
