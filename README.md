@@ -19,3 +19,37 @@
 Необходимо внедрение в действующую систему документированной регистрации служебных переговоров в диспетчерских центрах 
 управления и на железнодорожных станциях ОАО «РЖД» программного модуля для проведения сплошного прослушивания 
 регистратора переговоров и фиксации нарушений требований регламента.
+
+
+### Наше решение
+Мы разработали сервис, на котором руководитель сможет загрузить аудиофайл с регистратора переговоров, 
+а далее наша система превратит этот файл в текстовый диалог, определит тему и обозначит отхождения от регламента.
+
+Технические особенности: В нашем решении аудиофайл проходит несколько видов очистки от шумов, далее с помощью whisper 
+преобразуется в текст с ролями, через LLM Saiga классифицируется тема диалога и, в заключении, через 
+нейросеть в разговоре находятся ошибки. (Python, Saiga, flask, llama_cpp)
+
+Уникальность решения: Высокая точность перевода аудио в текст, что позволяет лучше обработать диалог и найти в нём 
+ошибки, а также в масштабируемости нашего решения - можно добавлять новые роли, связывать все диалоги с реальными 
+людьми и отслеживать статистику по каждому сотруднику.
+
+### Инструкция запуска
+
+```bash
+cd backend
+npm i 
+npm run start
+
+cd ..
+cd frontend
+npm i --force
+npm run build:prod
+```
+
+### Демонстрация решения
+![РЖЯ Переговоры](https://raw.githubusercontent.com/TeaWithSalt/train-conversation/main/service/Demo1.png "Auth")
+![РЖЯ Переговоры](https://raw.githubusercontent.com/TeaWithSalt/train-conversation/main/service/Demo2.png "Catalog")
+![РЖЯ Переговоры](https://raw.githubusercontent.com/TeaWithSalt/train-conversation/main/service/Demo6.png "Add record")
+![РЖЯ Переговоры](https://raw.githubusercontent.com/TeaWithSalt/train-conversation/main/service/Demo3.png "Record")
+![РЖЯ Переговоры](https://raw.githubusercontent.com/TeaWithSalt/train-conversation/main/service/Demo4.png "Participants")
+![РЖЯ Переговоры](https://raw.githubusercontent.com/TeaWithSalt/train-conversation/main/service/Demo5.png "Participant")

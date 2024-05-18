@@ -130,8 +130,11 @@ export class RecordService {
                 },
                 order: {
                     recognition_texts: {
-                        order_number: "ASC"
-                    }
+                        order_number: "ASC",
+                        errors: {
+                            order_number: "ASC"
+                        }
+                    },
                 }
             },
         )

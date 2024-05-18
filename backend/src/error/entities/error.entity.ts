@@ -12,6 +12,9 @@ export class Error {
     @Column()
     reason: string
 
+    @Column({default: 0})
+    order_number: number
+
     @ManyToOne(() => RecognitionText, (recognitionText) => recognitionText.errors, {nullable: true})
     @JoinColumn({name: 'recognition_text'})
     recognition_text: RecognitionText;
