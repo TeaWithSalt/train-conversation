@@ -52,4 +52,5 @@ npm run build:prod
 ![РЖЯ Переговоры](https://raw.githubusercontent.com/TeaWithSalt/train-conversation/main/service/Demo6.png "Add record")
 ![РЖЯ Переговоры](https://raw.githubusercontent.com/TeaWithSalt/train-conversation/main/service/Demo3.png "Record")
 ![РЖЯ Переговоры](https://raw.githubusercontent.com/TeaWithSalt/train-conversation/main/service/Demo4.png "Participants")
+![РЖЯ Переговоры](https://raw.githubusercontent.com/TeaWithSalt/train-conversation/main/service/Demo7.png "Add participant")
 ![РЖЯ Переговоры](https://raw.githubusercontent.com/TeaWithSalt/train-conversation/main/service/Demo5.png "Participant")

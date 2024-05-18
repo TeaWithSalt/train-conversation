@@ -34,7 +34,7 @@ export class RecordService {
             filename: file.originalname
         });
 
-        const recognitionText = await axios.post('http://89.208.216.16:5001/audio-to-text', formData, {
+        const recognitionText = await axios.post('http://62.84.126.41:5001/audio-to-text', formData, {
             headers: formData.getHeaders()
         });
 

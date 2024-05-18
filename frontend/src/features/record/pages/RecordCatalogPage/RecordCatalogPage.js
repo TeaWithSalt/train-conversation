@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import styles from './RecordCatalogPage.module.css'
 import RecordCard from "../../../../components/RecordCard/RecordCard";
 import {Button} from "antd";
-import AddRecordModal from "../../../../components/AddRecordModal/AddRecordModal";
+import AddRecordModal from "../../components/AddRecordModal/AddRecordModal";
 import {PlusOutlined} from "@ant-design/icons";
 import {useDispatch} from "react-redux";
 import Filters from "../../components/Filters/Filters";

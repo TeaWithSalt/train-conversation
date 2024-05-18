@@ -1,12 +1,13 @@
 import React, {useEffect, useState} from 'react';
 import styles from './ParticipantsCatalogPage.module.css'
 import {Avatar, Button, Card, Collapse, DatePicker, Spin} from "antd";
-import AddRecordModal from "../../../../components/AddRecordModal/AddRecordModal";
+import AddRecordModal from "../../../record/components/AddRecordModal/AddRecordModal";
 import {PlusOutlined} from "@ant-design/icons";
 import {useParticipants} from "../../../../hooks/use-participants";
 import {useDispatch} from "react-redux";
 import {getParticipants} from "../../../../store/slices/participantsSlice";
 import {useNavigate} from "react-router-dom";
+import AddParticipantModal from "../../components/AddParticipantModal/AddParticipantModal";
 
 const {RangePicker} = DatePicker;
 
@@ -77,7 +78,7 @@ export function ParticipantsCatalogPage(props) {
                     }
                 />
             </div>
-            <AddRecordModal isModalOpen={isAddParticipantModalOpen} setIsModalOpen={setIsAddParticipantModalOpen}/>
+            <AddParticipantModal isModalOpen={isAddParticipantModalOpen} setIsModalOpen={setIsAddParticipantModalOpen}/>
         </div>
     )
 }

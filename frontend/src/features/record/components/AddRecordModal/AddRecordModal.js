@@ -1,19 +1,15 @@
 import React, {useEffect, useState} from 'react';
-import {useNavigate} from 'react-router-dom';
 import styles from "./AddRecordModal.module.css"
 import {App, Avatar, Button, DatePicker, Flex, Form, Modal, Select, Space, Upload} from "antd";
 import {useDispatch} from "react-redux";
 import {InboxOutlined} from "@ant-design/icons";
-import {createRecord} from "../../store/slices/recordSlice";
-import {useParticipants} from "../../hooks/use-participants";
-import {useSituations} from "../../hooks/use-situations";
-import {getParticipants} from "../../store/slices/participantsSlice";
-import {getSituations} from "../../store/slices/situationTablesSlice";
+import {createRecord} from "../../../../store/slices/recordSlice";
+import {useParticipants} from "../../../../hooks/use-participants";
+import {getParticipants} from "../../../../store/slices/participantsSlice";
 
 const {Dragger} = Upload;
 
 export default function AddRecordModal(props) {
-    const navigate = useNavigate()
     const dispatch = useDispatch();
     const [isLoading, setIsLoading] = useState(false);
     const {message} = App.useApp();
@@ -25,30 +21,6 @@ export default function AddRecordModal(props) {
     useEffect(() => {
         dispatch(getParticipants())
     }, []);
-
-
-    const options = [
-        {
-            label: <span>Машинисты</span>,
-            title: 'Машинисты',
-            options: [
-                {
-                    label: <span>Иванов Иван</span>,
-                    value: 'Jack',
-                    avatarSrc: "https://avatars.githubusercontent.com/u/115563530?v=4"
-                },
-                {label: <span>Галимзянов Айнур</span>, value: '1'},
-            ],
-        },
-        {
-            label: <span>Диспетчеры</span>,
-            title: 'Диспетчеры',
-            options: [
-                {label: <span>Chloe</span>, value: 'Chloe'},
-                {label: <span>Lucas</span>, value: 'Lucas'},
-            ],
-        },
-    ]
 
     const addRecord = (payload) => {
         if (!isLoading) {
@@ -147,10 +119,10 @@ export default function AddRecordModal(props) {
                                  }}
                                  fileList={fileList}
                         >
-                            <p className="ant-upload-drag-icon">
-                                <InboxOutlined/>
+                            <p className="ant-upload-drag-icon"><InboxOutlined/></p>
+                            <p className="ant-upload-text">
+                                Кликните или перенесите аудио-файл<br/>с записью разговора (.wav)
                             </p>
-                            <p className="ant-upload-text">Кликните или перенесите аудио-файл<br/> с записью разговора</p>
                         </Dragger>
                     </Form.Item>
                 </Flex>
