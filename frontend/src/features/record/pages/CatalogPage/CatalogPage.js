@@ -16,103 +16,12 @@ export function CatalogPage(props) {
     const dispatch = useDispatch()
     const [isAddRecordModalOpen, setIsAddRecordModalOpen] = useState(false);
     const [displayRecords, setDisplayRecords] = useState([])
-    const records1 = useRecords()
+    const records = useRecords()
 
     useEffect(() => {
         dispatch(getRecords())
     }, [])
 
-
-    const records = [
-        {
-            id: 1,
-            situation: {
-                id: 2,
-                name: "Безостановочный пропуск поезда по главному железнодорожному пути железнодорожной станции при открытых входном (маршрутных) и выходном светофорах на однопутный перегон или по правильному железнодорожному пути двухпутного перегона при нормальном действии автоблокировки (полуавтоматической блокировки) и отсутствии необходимости в передаче дополнительных предупреждений\n"
-            },
-            date: "2024-05-17T17:30:52.255Z",
-            participants: [
-                {
-                    id: 1,
-                    name: "Галимзянов Айнур",
-                    role: "Диспетчер",
-                    avatarSrc: "https://i.pravatar.cc/150?img=12"
-                },
-                {
-                    id: 2,
-                    name: "Килязова Юния",
-                    role: "Машинист",
-                    avatarSrc: "https://i.pravatar.cc/150?img=44"
-                }
-            ]
-        },
-        {
-            id: 2,
-            situation: {
-                id: 1,
-                name: "Прием поезда по регистрируемому приказу ДСП станции"
-            },
-            date: "2024-05-19T17:30:52.255Z",
-            participants: [
-                {
-                    id: 2,
-                    name: "Килязова Юния",
-                    role: "Машинист",
-                    avatarSrc: "https://i.pravatar.cc/150?img=44"
-                },
-                {
-                    id: 1,
-                    name: "Галимзянов Айнур",
-                    role: "Диспетчер",
-                    avatarSrc: "https://i.pravatar.cc/150?img=12"
-                }
-            ]
-        },
-        {
-            id: 3,
-            situation: {
-                id: 1,
-                name: "Прием поезда по регистрируемому приказу ДСП станции"
-            },
-            date: "2024-05-19T17:30:52.255Z",
-            participants: [
-                {
-                    id: 1,
-                    name: "Галимзянов Айнур",
-                    role: "Диспетчер",
-                    avatarSrc: "https://i.pravatar.cc/150?img=12"
-                },
-                {
-                    id: 2,
-                    name: "Килязова Юния",
-                    role: "Машинист",
-                    avatarSrc: "https://i.pravatar.cc/150?img=44"
-                }
-            ]
-        },
-        {
-            id: 4,
-            situation: {
-                id: 1,
-                name: "Прием поезда по регистрируемому приказу ДСП станции"
-            },
-            date: "2024-05-19T17:30:52.255Z",
-            participants: [
-                {
-                    id: 2,
-                    name: "Килязова Юния",
-                    role: "Машинист",
-                    avatarSrc: "https://i.pravatar.cc/150?img=44"
-                },
-                {
-                    id: 1,
-                    name: "Галимзянов Айнур",
-                    role: "Диспетчер",
-                    avatarSrc: "https://i.pravatar.cc/150?img=12"
-                }
-            ]
-        }
-    ]
 
     return (
         <div className={styles.catalogPage}>
@@ -145,7 +54,7 @@ export function CatalogPage(props) {
                 </div>
                 <div className={styles.catalogPage__right}>
                     <Card>
-                        <Filters records={records1.records} setRecords={setDisplayRecords}/>
+                        <Filters records={records.records} setRecords={setDisplayRecords}/>
                     </Card>
                 </div>
             </div>

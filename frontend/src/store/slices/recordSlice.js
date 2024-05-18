@@ -30,6 +30,38 @@ export const getRecord = createAsyncThunk(
     }
 );
 
+export const sendRecord = createAsyncThunk(
+    'record/create',
+    async function (record, {rejectWithValue, dispatch}) {
+        try {
+            const formData = new FormData();
+            formData.append("file", record.file);
+            console.log(record)
+
+            let response = await fetch(API.RECORD, {
+                method: 'post',
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer " + localStorage.getItem(localStorageKeys.accessToken)
+                }
+            });
+
+            if (!response.ok) {
+                if (response.status === 401)
+                    throw new Error("Неправильный логин или пароль!");
+            }
+
+            response = await response.json();
+            console.log(response)
+            dispatch(setRecord(response));
+
+            return response;
+        } catch (error) {
+            return rejectWithValue(error.message);
+        }
+    }
+);
+
 const initialState = {
     record: null
 };
