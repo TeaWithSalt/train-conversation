@@ -1,4 +1,4 @@
 export class CreateRecordDto {
     date: Date
-    participants: string[]
+    participants: string
 }

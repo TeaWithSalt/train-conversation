@@ -3,9 +3,10 @@ import {RecordService} from './record.service';
 import {RecordController} from './record.controller';
 import {Record} from "./entities/record.entity";
 import {TypeOrmModule} from "@nestjs/typeorm";
+import {Participant} from "../participant/entities/participant.entity";
 
 @Module({
-    imports: [TypeOrmModule.forFeature([Record])],
+    imports: [TypeOrmModule.forFeature([Record, Participant])],
     controllers: [RecordController],
     providers: [RecordService],
 })
