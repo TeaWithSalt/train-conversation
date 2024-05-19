@@ -68,7 +68,7 @@ export class RecordService {
             situationTable: {id: recognitionTextWithRoles.type},
             duration: 0,
             date: createRecordDto.date,
-            audioSrc: "https://d5d710csp8btpmh27bp8.apigw.yandexcloud.net/record/download/" + file.filename,
+            audioSrc: "https://d5d710csp8btpmh27bp8.apigw.yandexcloud.net/api/record/download/" + file.filename,
             // authors: createBookDto.authors?.map(author => ({id: author})),
             // speakers: createBookDto.speakers?.map(speaker => ({id: speaker})),
             // genres: createBookDto.genres?.map(genre => ({id: genre}))
