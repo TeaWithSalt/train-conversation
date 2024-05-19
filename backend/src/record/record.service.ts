@@ -68,7 +68,6 @@ export class RecordService {
             situationTable: {id: recognitionTextWithRoles.type},
             duration: 0,
             date: createRecordDto.date,
-            participants: recognitionText.data.roles.map(role => ({id: role.id})),
             audioSrc: "https://d5d710csp8btpmh27bp8.apigw.yandexcloud.net/api/record/download/" + file.filename,
             // authors: createBookDto.authors?.map(author => ({id: author})),
             // speakers: createBookDto.speakers?.map(speaker => ({id: speaker})),
@@ -77,6 +76,9 @@ export class RecordService {
 
         console.log(newRecord)
         const res = await this.recordRepository.save(newRecord);
+        await this.recordRepository.update(res.id, {
+            participants: dataForRecognitionRoles.roles.map(role => ({id: role.id})),
+        })
         return {recordID: res.id}
     }
 
