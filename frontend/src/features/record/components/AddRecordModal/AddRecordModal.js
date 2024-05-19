@@ -30,7 +30,7 @@ export default function AddRecordModal(props) {
             dispatch(createRecord({
                 date: payload.date,
                 participants: payload.participants,
-                file: fileList[0]
+                file: fileList[0],
             })).then((response) => {
                 setIsLoading(false)
                 message.destroy('addRecord')
@@ -117,6 +117,7 @@ export default function AddRecordModal(props) {
                                      setFileList([file]);
                                      return false;
                                  }}
+                                 onChange={info => console.log(info)}
                                  fileList={fileList}
                         >
                             <p className="ant-upload-drag-icon"><InboxOutlined/></p>

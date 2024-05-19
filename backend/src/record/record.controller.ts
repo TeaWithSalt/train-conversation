@@ -1,21 +1,22 @@
 import {
     Body,
     Controller,
-    Delete,
     Get,
     HttpStatus,
-    Param, ParseFilePipeBuilder,
-    Patch,
+    Param,
+    ParseFilePipeBuilder,
     Post,
-    UploadedFile, UseGuards,
+    StreamableFile,
+    UploadedFile,
+    UseGuards,
     UseInterceptors
 } from '@nestjs/common';
 import {RecordService} from './record.service';
 import {CreateRecordDto} from './dto/create-record.dto';
-import {UpdateRecordDto} from './dto/update-record.dto';
 import {FileInterceptor} from "@nestjs/platform-express";
 import {diskStorage} from "multer";
 import {JwtAuthGuard} from "../auth/guards/jwt-auth.guard";
+import {extname} from 'path';
 
 @Controller('record')
 export class RecordController {
@@ -26,8 +27,11 @@ export class RecordController {
     @UseInterceptors(FileInterceptor('file', {
         storage: diskStorage({
             destination: './uploads/',
-        }),
-        //   fileFilter: imageFileFilter,
+            filename: (req, file, cb) => {
+                const randomName = Array(32).fill(null).map(() => (Math.round(Math.random() * 16)).toString(16)).join('')
+                cb(null, `${randomName}${extname(file.originalname)}`)
+            }
+        },),
     }))
     @UseGuards(JwtAuthGuard)
     create(@Body() createRecordDto: CreateRecordDto,
@@ -53,5 +57,10 @@ export class RecordController {
     @UseGuards(JwtAuthGuard)
     findOne(@Param('id') id: string) {
         return this.recordService.findOne(id);
+    }
+
+    @Get('/download/:id')
+    downloadFile(@Param("id") id: string): StreamableFile {
+        return this.recordService.download(id);
     }
 }
