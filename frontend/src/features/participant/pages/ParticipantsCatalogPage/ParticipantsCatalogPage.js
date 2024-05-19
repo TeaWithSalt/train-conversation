@@ -50,7 +50,7 @@ export function ParticipantsCatalogPage(props) {
                     items={
                         participants.roles.map((role, index) => {
                             return {
-                                key: role,
+                                key: role.roleName,
                                 label: <p className={styles.participantsCatalogPage__title}>
                                     {role.roleName}
                                     <p className={styles.participantsCatalogPage__number}>({role.participants.length})</p>
