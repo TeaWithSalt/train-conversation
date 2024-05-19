@@ -6,7 +6,7 @@ import {ReactComponent as Logo} from "../../assets/images/Logo.svg";
 import {useDispatch} from "react-redux";
 import {getUserProfile, removeUser} from "../../store/slices/userSlice";
 import {LogoutOutlined} from "@ant-design/icons";
-import {Link, useNavigate} from "react-router-dom";
+import {Link, NavLink, useNavigate} from "react-router-dom";
 import {removeAuth} from "../../store/slices/authSlice";
 
 export default function Header() {
@@ -32,12 +32,18 @@ export default function Header() {
             <Logo width={250} className={styles.header__logo} onClick={toCatalog}/>
 
             <div className={styles.header__navigation}>
-                <Button type="text" size="large">
-                    <Link className={styles.header__navigation} to="/">Записи</Link>
-                </Button>
-                <Button type="text" size="large">
-                    <Link className={styles.header__navigation} to="/participants">Участники</Link>
-                </Button>
+                <NavLink className={({isActive}) =>
+                    `${styles.header__navigation} ${isActive ? styles.header__navigation_active : ''}`
+                }
+                         to="/">
+                    Записи
+                </NavLink>
+                <NavLink className={({isActive}) =>
+                    `${styles.header__navigation} ${isActive ? styles.header__navigation_active : ''}`
+                }
+                         to="/participants">
+                    Участники
+                </NavLink>
             </div>
 
             <div className={styles.header__profile}>
