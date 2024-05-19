@@ -24,7 +24,7 @@ export class Record {
     @JoinColumn({name: 'situation_table'})
     situationTable: SituationTable;
 
-    @ManyToMany(() => Participant, (participant) => participant.records, {onDelete: "CASCADE"})
+    @ManyToMany(() => Participant, (participant) => participant.records, {onDelete: "CASCADE", nullable: true})
     participants: Participant[]
 
     @OneToMany(() => RecognitionText, (recognitionText) => recognitionText.record, {nullable: true})
