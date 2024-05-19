@@ -2,15 +2,14 @@ import React from 'react';
 import styles from './LoginPage.module.css'
 import {LoginForm} from '../../components/LoginForm/LoginForm';
 import {Alignment, Fit, Layout, useRive} from "@rive-app/react-canvas";
-import {Card} from "antd";
 import {ReactComponent as Logo} from "../../../../assets/images/Logo.svg";
 
 export function LoginPage() {
     const {rive, RiveComponent} = useRive({
-        src: './Train2.riv',
+        src: './Train3.riv',
         stateMachines: "State Machine 1",
         autoplay: true,
-        layout: new Layout({fit: Fit.Cover, alignment: Alignment.Center})
+        layout: new Layout({fit: Fit.Cover, alignment: Alignment.CenterLeft})
     });
 
 
