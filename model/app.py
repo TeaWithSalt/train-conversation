@@ -37,26 +37,14 @@ app.register_blueprint(swaggerui_blueprint, url_prefix=SWAGGER_URL)
 
 
 def trimAudio(save_path):
-   # w, s = librosa.load(save_path)
-    #w = librosa.effects.trim(w, top_db=25)[0]
-
-
-    #soundfile.write(save_path, w, s)
-
-
     audio2 = AudioSegment.from_wav(save_path)
     chunks = split_on_silence(audio2, min_silence_len=650, silence_thresh=-60)
     output = AudioSegment.empty()
     for chunk in chunks:
         output += chunk
 
-
     save_path = os.path.join(app.config['UPLOAD_FOLDER'], "filename.wav")
     output.export(save_path, format="wav")
-
-
-
-
 
     return save_path
 
@@ -75,7 +63,7 @@ def audioToText():
 
     asr_result = model.transcribe(s, language="russian")
     diarization_result = pipeline(s, num_speakers=2)
-   # os.remove(save_path)
+    os.remove(save_path)
     final_result = diarize_text(asr_result, diarization_result)
 
 
