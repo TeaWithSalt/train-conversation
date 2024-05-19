@@ -132,7 +132,7 @@ async def send_text():
     try:
         for i in range(len(dialog_with_roles)):
 
-            dialog_for_answer.append({"id": dict_roles_id[dialog_with_roles[i].split(':')[0]], "text": (dialog_with_roles[i].split(':')[1]).strip()})
+            dialog_for_answer.append({"id": dict_roles_id[dialog_with_roles[i].split(':')[0]], "text": (dialog_with_roles[i][dialog_with_roles[i].find(':')+1:]).strip()})
     except:
         return jsonify({"dict_roles_id": dict_roles_id, "dialog_with_roles": dialog_with_roles})
 
