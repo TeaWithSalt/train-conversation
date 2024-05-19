@@ -51,7 +51,7 @@ export default function Filters({
     const onChangeSituationsFilter = (values) => {
         setSituationsFilter(values)
     }
-console.log(situationsSearch)
+
     return (
         <div className={`${styles.filters} Filters`}>
             <RangePicker
