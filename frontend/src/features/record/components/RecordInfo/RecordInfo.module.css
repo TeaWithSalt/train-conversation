@@ -8,7 +8,7 @@
 .recordInfo__item {
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 10px;
 }
 
 .recordInfo__item__title {
@@ -18,7 +18,7 @@
 }
 
 .recordInfo__item__value {
-    font-size: 24px;
+    font-size: 16px;
     line-height: 1;
 }
 
@@ -41,11 +41,12 @@
 }
 
 .recordInfo__participant__name {
-    font-size: 20px;
+    font-size: 16px;
     line-height: 1;
 }
 
 .recordInfo__participant__role {
-    font-size: 16px;
+    font-size: 14px;
     line-height: 1;
+    color: var(--color-white-200);
 }
