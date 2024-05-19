@@ -25,3 +25,7 @@
     max-width: calc(100% - 60px);
     overflow: hidden
 }
+
+.Filters .ant-select-selection-search {
+    display: none;
+}

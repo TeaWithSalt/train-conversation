@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import styles from "./Filters.module.css"
-import {Avatar, DatePicker, Select, Space, Spin, Tooltip} from "antd";
+import {Avatar, DatePicker, Dropdown, Input, Select, Space, Spin, Tooltip} from "antd";
 import {useDispatch} from "react-redux";
 import {getParticipants} from "../../../../store/slices/participantsSlice";
 import {useParticipants} from "../../../../hooks/use-participants";
@@ -17,6 +17,8 @@ export default function Filters({
     const dispatch = useDispatch()
     const [participantsFilter, setParticipantsFilter] = useState([])
     const [situationsFilter, setSituationsFilter] = useState([])
+    const [participantsSearch, setPartipantSearch] = useState('')
+    const [situationsSearch, setSituationsSearch] = useState('')
 
     const participants = useParticipants()
     const situations = useSituations()
@@ -49,7 +51,7 @@ export default function Filters({
     const onChangeSituationsFilter = (values) => {
         setSituationsFilter(values)
     }
-
+console.log(situationsSearch)
     return (
         <div className={`${styles.filters} Filters`}>
             <RangePicker
@@ -103,6 +105,18 @@ export default function Filters({
                         {option.data.label}
                     </Space>
                 )}
+                filterOption={(search, option) => {
+                    return option.label.props.children.toLowerCase().includes(search.toLowerCase())
+                }}
+                searchValue={participantsSearch}
+                dropdownRender={(menu) => (
+                    <Dropdown>
+                        <>
+                            <Input value={participantsSearch} onChange={event => setPartipantSearch(event.target.value)}/>
+                            {menu}
+                        </>
+                    </Dropdown>
+                )}
             />}
             <Select
                 mode="multiple"
@@ -129,6 +143,16 @@ export default function Filters({
                     >
                         <span className={styles.extraOptions}>+{omittedValues.length}</span>
                     </Tooltip>
+                )}
+                filterOption={(search, option) => option.label.toLowerCase().includes(search.toLowerCase())}
+                searchValue={situationsSearch}
+                dropdownRender={(menu) => (
+                    <Dropdown>
+                        <>
+                            <Input value={situationsSearch} onChange={event => setSituationsSearch(event.target.value)}/>
+                            {menu}
+                        </>
+                    </Dropdown>
                 )}
             />
         </div>
