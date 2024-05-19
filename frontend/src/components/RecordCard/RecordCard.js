@@ -24,7 +24,7 @@ export default function RecordCard(props) {
                     <p className={styles.recordCard__date}>{getDateFromISO(props.record.date)}</p>
                     <div className={styles.separator}/>
                     <div className={styles.recordCard__moreContainer}
-                         onClick={() => navigate("record/" + props.record.id)}>
+                         onClick={() => navigate("/record/" + props.record.id)}>
                         <p className={styles.recordCard__more}>Подробнее</p>
                     </div>
                 </div>
