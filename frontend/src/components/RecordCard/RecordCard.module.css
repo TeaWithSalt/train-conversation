@@ -25,13 +25,9 @@
     align-items: center;
 }
 
-.recordCard__participants {
-    display: flex;
-    gap: 25px;
-}
-
 .recordCard__line {
-    margin: 0 -50px;
+    position: absolute;
+    top: 20px
 }
 
 .recordCard__date {
@@ -119,9 +115,20 @@
     flex-direction: column;
     gap: 10px;
     align-items: center;
+    flex: 1;
+    max-width: 360px;
+    position: relative;
+    overflow: hidden;
 }
 
 .durationValue {
-    color: var(--color-gray-200);
+    color: var(--color-white-200);
     font-size: 14px;
+    margin-top: 35px;
+}
+
+.mainLeftContainer {
+    display: flex;
+    gap: 25px;
+    flex:1;
 }

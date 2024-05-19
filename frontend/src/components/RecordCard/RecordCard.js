@@ -30,19 +30,18 @@ export default function RecordCard(props) {
                 </div>
 
                 <div className={styles.mainContainer}>
-                    <div className={styles.mainLeftContainer}>
-                        <div className={styles.recordCard__participants}>
+                        <div className={styles.mainLeftContainer}>
                             {props.record.participants.map((participant, index) => (
                                 <>
                                     <ParticipantInfo {...participant}/>
                                     {
                                         index !== props.record.participants.length - 1 &&
                                         <div className={styles.duration}>
-                                            <svg className={styles.recordCard__line} width="150" height="56"
-                                                 viewBox="0 0 150 3" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M3 3H150" stroke="#e21a1a80" strokeWidth="3"
+                                            <svg className={styles.recordCard__line} width={360}
+                                                 viewBox="0 0 150 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M3 3H150" stroke="#e21a1a80" strokeWidth="1"
                                                       strokeLinecap="round"
-                                                      strokeDasharray="10 10">
+                                                      strokeDasharray="5 5">
                                                     <animate attributeName="stroke-dashoffset" values="900;0" dur="20s"
                                                              repeatCount="indefinite"/>
                                                 </path>
@@ -54,7 +53,6 @@ export default function RecordCard(props) {
                                     }
                                 </>
                             ))}
-                        </div>
                     </div>
 
                     <div className={styles.mainRightContainer}>
