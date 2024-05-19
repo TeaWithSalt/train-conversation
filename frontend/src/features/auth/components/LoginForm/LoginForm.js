@@ -35,35 +35,32 @@ export function LoginForm() {
     }
 
     return (
-        <div className={styles.loginForm}>
-            <Form
-                name="authorization"
-                className={styles.loginForm__form}
-                onFinish={logIn}
-                autoComplete="off"
-                layout={'vertical'}
-                disabled={isLoading}
+        <Form
+            name="authorization"
+            className={styles.loginForm__form}
+            onFinish={logIn}
+            autoComplete="off"
+            layout={'vertical'}
+            disabled={isLoading}
+        >
+            <Form.Item
+                name="email"
+                rules={[{required: true, message: 'Поле обязательно для ввода!'}]}
             >
-                <Form.Item
-                    name="email"
-                    rules={[{required: true, message: 'Поле обязательно для ввода!'}]}
-                >
-                    <Input placeholder="Введите почту" size="large"/>
-                </Form.Item>
+                <Input placeholder="Введите почту" size="large"/>
+            </Form.Item>
 
-                <Form.Item
-                    name="password"
-                    rules={[{required: true, message: 'Поле обязательно для ввода!'}]}
-                >
-                    <Input.Password placeholder="Введите пароль" size="large"/>
-                </Form.Item>
+            <Form.Item
+                name="password"
+                rules={[{required: true, message: 'Поле обязательно для ввода!'}]}
+            >
+                <Input.Password placeholder="Введите пароль" size="large"/>
+            </Form.Item>
 
-                <Form.Item className={styles.loginForm__button}>
-                    <Button type="primary" htmlType="submit" size="large" disabled={isLoading}>
-                        Авторизоваться
-                    </Button>
-                </Form.Item>
-            </Form>
-        </div>
+            <Button type="primary" htmlType="submit" size="large" disabled={isLoading}
+                    className={styles.loginForm__button}>
+                Авторизоваться
+            </Button>
+        </Form>
     )
 }

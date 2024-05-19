@@ -31,7 +31,7 @@ export function ParticipantsCatalogPage(props) {
     return (
         <div className={styles.participantsCatalogPage}>
             <div className={styles.participantsCatalogPage__titleContainer}>
-                <h1>Участники переговоров</h1>
+                <h1 className={styles.title}>Участники переговоров</h1>
                 <Button
                     type="primary"
                     onClick={() => setIsAddParticipantModalOpen(true)}
