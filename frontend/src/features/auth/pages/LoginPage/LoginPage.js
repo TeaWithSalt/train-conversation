@@ -17,20 +17,18 @@ export function LoginPage() {
     return (
         <div className={styles.loginPage}>
             <RiveComponent className={styles.riveAnimation}/>
-            <Card className={styles.loginCard}>
+            <div className={styles.loginCard}>
                 <Logo className={styles.logo}/>
 
-                <div className={styles.loginPage__titleContainer}>
-                    <p className={styles.loginPage__description}>
-                        Cервис для прослушивания РПЛ <br/>и
+                <div className={styles.formContainer}>
+                    <h3 className={styles.loginPage__description}>
+                        Cервис для прослушивания РПЛ и
                         фиксации нарушений требований регламента
-                    </p>
-                </div>
+                    </h3>
 
-                <div className={styles.loginForm__container}>
-                    <LoginForm/>
+                    <LoginForm className={styles.form}/>
                 </div>
-            </Card>
+            </div>
         </div>
     )
 }

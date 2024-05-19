@@ -5,14 +5,10 @@ import styles from "./LandingLayout.module.css"
 
 export default function LandingLayout() {
     return (
-        <div>
-            <MantineProvider theme={{colorScheme: 'light'}}>
-                <div className={styles.landingLayout}>
-                    <div className={styles.landingLayout__app}>
-                        <Outlet/>
-                    </div>
-                </div>
-            </MantineProvider>
-        </div>
+        <MantineProvider theme={{colorScheme: 'light'}}>
+            <div className={styles.landingLayout}>
+                <Outlet/>
+            </div>
+        </MantineProvider>
     );
 };

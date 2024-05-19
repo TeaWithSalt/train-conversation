@@ -1,8 +1,7 @@
 .landingLayout {
-    background-color: #e9eaed
-}
-
-.landingLayout__app {
+    background-color: #e9eaed;
     width: 100vw;
     height: 100vh;
+    overflow: hidden;
 }
+
